@@ -72,8 +72,13 @@ export default function Header() {
     navigate('Dashboard')
   }
 
+  const handleLogout =()=>{
+    localStorage.clear();
+    navigate('/')
+  }
+
   const handleLeadsNavigate = ()=>{
-    navigate('Leads')
+    navigate('Leads/AllLeads')
   }
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -109,8 +114,8 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+     
+      <MenuItem onClick={handleLogout}>logout</MenuItem>
     </Menu>
   );
 

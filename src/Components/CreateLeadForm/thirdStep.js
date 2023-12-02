@@ -1,7 +1,15 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Select } from "antd";
 
-const ThirdStep = ({ data, onSuccess, current, steps, next, form , finalStep }) => {
+const ThirdStep = ({
+  data,
+  onSuccess,
+  current,
+  steps,
+  next,
+  form,
+  finalStep,
+}) => {
   console.log(steps, "stepssteps");
   return (
     <>
@@ -10,33 +18,58 @@ const ThirdStep = ({ data, onSuccess, current, steps, next, form , finalStep }) 
         onSuccess={onSuccess}
         data={data}
         autoComplete="off"
-        layout="horizontal"
+        layout="vertical"
+        style={{ margin: "50px" }}
       >
         <Form.Item
-          label="thirdrname"
-          name="thirdrname"
+          label="transaction type"
+          name="transaction_type"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Input />
+          <Select>
+            <Select.Option value="commission_based">
+              commission based
+            </Select.Option>
+            <Select.Option value="immediate">immediate</Select.Option>
+          </Select>
         </Form.Item>
 
-        {/* {current < steps - 1 && (
-        <Button type="primary" htmlType="submit" onClick={() => next()}>
-          Next
-        </Button>
-      )} */}
+        <Form.Item
+          label="price"
+          name="price"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input type="number" />
+        </Form.Item>
+
+        <Form.Item
+          label="description"
+          name="description"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input.TextArea rows={8} />
+        </Form.Item>
 
         <Button
+          style={{ width: "70%", backgroundColor: "#2d3282" }}
           type="primary"
           htmlType="submit"
           onClick={() => finalStep()}
-         // onClick={() => message.success("Processing complete!")}
+          // onClick={() => message.success("Processing complete!")}
         >
-          Done
+          Submit
         </Button>
       </Form>
     </>

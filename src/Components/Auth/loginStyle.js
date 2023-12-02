@@ -25,3 +25,24 @@ width:400px !important
 
 }
 `;
+
+export const SignUpForm = styled.div`
+display: grid;
+justify-content: center;
+
+.logo{
+    margin: 30px 105px;
+}
+
+.ant-col-offset-8 {
+    margin-inline-start : unset !important
+}
+.login_btn{
+    width:420px !important;
+    background-color:#2d3282 !important;
+    height:37px ; 
+    margin-top: 10px;
+
+}
+
+`;

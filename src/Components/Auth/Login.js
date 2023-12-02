@@ -12,7 +12,13 @@ const Signin = () => {
     await console.log("Success:", values);
     await localStorage.setItem("loggedIn", true);
     setLoggedUser(localStorage.getItem("loggedIn"));
+
     await navigate("/home/Leads/AllLeads");
+    window.location.reload()
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   useEffect(() => {
@@ -20,9 +26,7 @@ const Signin = () => {
       navigate("/home/Leads/AllLeads");
     }
   }, [loggedUser]);
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+
   return (
     <LoginForm>
       <img src={logo} alt="logo" className="logo" />
