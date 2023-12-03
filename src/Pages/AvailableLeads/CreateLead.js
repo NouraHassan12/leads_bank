@@ -211,10 +211,10 @@ const CreateLead = () => {
           direction="vertical"
           style={{
             width: "20%",
-            maxHeight: "220px",
+            maxHeight: "235px",
             marginLeft: "40px",
             marginTop: "40px",
-            background: "aliceblue",
+           // background: "aliceblue",
             padding: "16px",
             borderRadius: "11px",
           }}

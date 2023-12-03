@@ -12,6 +12,37 @@ export const LeadsNav = styled.div`
         color:black !important;
     }
 
+    li {
+       // position: relative;
+       // flex-basis: 11%;
+        margin-bottom: 10px;
+        padding: 0px 10px;
+    
+        a {
+          /* padding: 1rem 0; */
+          color: #999999;
+          transition: all 0.3s ease-out;
+          font-weight: 600;
+          display: flex;
+          align-items: left;
+          font-size: 15px;
+          text-decoration: none;
+          &:hover {
+            color: #358ee1;
+            border-radius:10px;
+            padding: 5px 10px
+          }
+          &.active {
+            color: #358ee1;
+            background-color:#eef4ff;
+            border-radius:10px;
+            padding:10px
+            
+          }
+        }
+          
+        }
+
    
 }
 

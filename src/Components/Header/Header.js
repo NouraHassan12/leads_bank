@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import logo from "../../Images/whiteLogo.png";
 import { HeaderContainer } from "./HeaderStyle";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -186,7 +187,7 @@ export default function Header() {
               {/* <MenuIcon /> */}
               <img src={logo} />
             </IconButton>
-            <Typography
+            {/* <Typography
             onClick={handleNavigate}
             variant="h6"
             noWrap
@@ -194,9 +195,19 @@ export default function Header() {
             sx={{ display: {  sm: 'block'  , margin:"10px"} }}
           >
            dashboard
-          </Typography>
+          </Typography> */}
+          <div style={{marginLeft:"50px" , display:"flex" , alignItems:"center"}}>
+          <NavLink to={`Dashboard`}>
+          dashboard
+            </NavLink>
 
-          <Typography
+            <NavLink to={`Leads/AllLeads`}>
+          leads
+            </NavLink>
+
+          </div>
+         
+          {/* <Typography
           onClick={handleLeadsNavigate}
             variant="h6"
             noWrap
@@ -204,7 +215,9 @@ export default function Header() {
             sx={{ display: { sm: 'block' } }}
           >
            leads
-          </Typography>
+          </Typography> */}
+
+         
             {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
