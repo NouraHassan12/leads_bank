@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, Checkbox, Form, Input  , Divider} from "antd";
-import { SignUpForm  , SignUpContainer} from "./loginStyle";
-import logo from "../../Images/whiteLogo.png";
+import { Button, Checkbox, Form, Input, Divider } from "antd";
+import { SignUpForm, SignUpContainer } from "./loginStyle";
+import logo from "../../Images/logo.png";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
@@ -22,6 +22,9 @@ const SignUp = () => {
     <SignUpContainer>
       <SignUpForm>
         <img src={logo} alt="logo" className="logo" />
+        <div className="welcomDiv">
+          <h2>Sign Up</h2>
+        </div>
         <Form
           name="basic"
           // labelCol={{
@@ -135,18 +138,30 @@ const SignUp = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit" className="login_btn" style={{marginBottom:"40px"}}>
-              Submit
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login_btn"
+              style={{ marginBottom: "5px" }}
+            >
+              Sign Up
             </Button>
           </Form.Item>
         </Form>
+        <div className="registerNow">
+        <p style={{ textAlign: "center" }}>
+        Already have an account?{" "}
+          <span style={{ color: "blue", fontWeight: "600" }}>  Sign in</span>
+         
+        </p>
+      </div>
       </SignUpForm>
 
       <Divider />
-    <div className="privacyAndPolicy">
-      <p>Privacy Policy</p>
-      <p>Terms and Conditions</p>
-    </div>
+      <div className="privacyAndPolicy">
+        <p>Privacy Policy</p>
+        <p>Terms and Conditions</p>
+      </div>
     </SignUpContainer>
   );
 };

@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Signin from "../Components/Auth/Login.js";
 import SignUp from "../Components/Auth/SignUp.js";
 import { withStyles } from "@material-ui/core/styles";
-import logo from "../Images/whiteLogo.png";
+import logo from "../Images/logo.png";
 const CustomTab = withStyles({
   root: {
     backgroundColor: "white !important",

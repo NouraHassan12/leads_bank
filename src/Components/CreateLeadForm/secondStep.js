@@ -10,6 +10,7 @@ const SecondStep = ({
   form,
   setCurrent,
   sceNext,
+  previous
 }) => {
   const [value, setValue] = useState();
   console.log(steps, "stepssteps");
@@ -149,6 +150,7 @@ const SecondStep = ({
         </Form.Item>
 
         {/* {current < steps - 1 && ( */}
+        <div style={{display:"flex" , justifyContent:"space-around"}}>
         <Button
           style={{ width: "35%", backgroundColor: "#2d3282" }}
           type="primary"
@@ -157,6 +159,17 @@ const SecondStep = ({
         >
           Next
         </Button>
+
+        <Button
+          style={{ width: "35%", backgroundColor: "#2d3282" }}
+          type="primary"
+          htmlType="submit"
+          onClick={() => previous()}
+        >
+         Previous
+        </Button>
+        </div>
+       
         {/* )} */}
       </Form>
     </>

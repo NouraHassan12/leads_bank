@@ -15,10 +15,12 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import logo from "../../Images/whiteLogo.png";
+import logo from "../../Images/logo.png";
 import { HeaderContainer } from "./HeaderStyle";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { HomeOutlined , BarChartOutlined } from "@ant-design/icons";
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -68,19 +70,20 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleNavigate = () => {
+    navigate("Dashboard");
+  };
 
-  const handleNavigate =()=>{
-    navigate('Dashboard')
-  }
-
-  const handleLogout =()=>{
+  const handleLogout = () => {
     localStorage.clear();
-    navigate('/')
-  }
+    
+    navigate("/");
+    window.location.reload()
+  };
 
-  const handleLeadsNavigate = ()=>{
-    navigate('Leads/AllLeads')
-  }
+  const handleLeadsNavigate = () => {
+    navigate("Leads/AllLeads");
+  };
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -115,7 +118,6 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-     
       <MenuItem onClick={handleLogout}>logout</MenuItem>
     </Menu>
   );
@@ -137,26 +139,8 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+   
+    
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -187,37 +171,26 @@ export default function Header() {
               {/* <MenuIcon /> */}
               <img src={logo} />
             </IconButton>
-            {/* <Typography
-            onClick={handleNavigate}
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: {  sm: 'block'  , margin:"10px"} }}
-          >
-           dashboard
-          </Typography> */}
-          <div style={{marginLeft:"50px" , display:"flex" , alignItems:"center"}}>
-          <NavLink to={`Dashboard`}>
-          dashboard
-            </NavLink>
-
-            <NavLink to={`Leads/AllLeads`}>
-          leads
-            </NavLink>
-
-          </div>
          
-          {/* <Typography
-          onClick={handleLeadsNavigate}
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { sm: 'block' } }}
-          >
-           leads
-          </Typography> */}
+            <div
+              style={{
+                marginLeft: "50px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <NavLink to={`Dashboard`} >
+                <HomeOutlined style={{margin:"0px 8px"}} />
+                dashboard
+              </NavLink>
 
-         
+              <NavLink to={`Leads/AllLeads`}>
+              <BarChartOutlined style={{margin:"0px 8px"}} />
+                leads</NavLink>
+            </div>
+
+          
+
             {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />

@@ -11,6 +11,9 @@ export const LoginForm = styled.div`
   .logo {
     margin: 10px 105px;
   }
+  img{
+    width:210px
+  }
   .ant-col-offset-8 {
     margin-inline-start: unset !important;
   }
@@ -30,8 +33,8 @@ export const LoginForm = styled.div`
   .welcomDiv {
     text-align: center;
 
-    h1 {
-      margin: 0px !important;
+    h2 {
+      margin: 5px !important;
       color: #1d2939;
     }
 
@@ -87,6 +90,7 @@ export const SignUpContainer = styled.div`
   .privacyAndPolicy {
     display: flex;
     justify-content: space-between;
+    
 
     p {
       margin: 0px !important;
@@ -101,7 +105,19 @@ export const SignUpForm = styled.div`
   justify-content: center;
 
   .logo {
-    margin: 30px 105px;
+    margin: 5px 130px;
+  
+  }
+
+  .welcomDiv {
+    text-align: center;
+
+    h2 {
+      margin: 5px 10px!important;
+      color: #1d2939;
+    }
+
+   
   }
 
   .ant-col-offset-8 {
@@ -112,5 +128,15 @@ export const SignUpForm = styled.div`
     background-color: #2d3282 !important;
     height: 37px;
     margin-top: 10px;
+  }
+
+  .registerNow {
+    margin-bottom:30px;
+    p {
+      margin: 0px !important;
+      text-align: center;
+      font-size: 14px;
+      color: #667085;
+    }
   }
 `;

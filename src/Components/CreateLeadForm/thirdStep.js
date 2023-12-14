@@ -9,6 +9,7 @@ const ThirdStep = ({
   next,
   form,
   finalStep,
+  previous
 }) => {
   console.log(steps, "stepssteps");
   return (
@@ -62,8 +63,18 @@ const ThirdStep = ({
           <Input.TextArea rows={8} />
         </Form.Item>
 
+        <div style={{display:"flex" , justifyContent:"space-around"}}>
         <Button
-          style={{ width: "70%", backgroundColor: "#2d3282" }}
+          style={{ width: "35%", backgroundColor: "#2d3282" }}
+          type="primary"
+          htmlType="submit"
+          onClick={() => previous()}
+        >
+         Previous
+        </Button>
+
+        <Button
+          style={{ width: "35%", backgroundColor: "#2d3282" }}
           type="primary"
           htmlType="submit"
           onClick={() => finalStep()}
@@ -71,6 +82,8 @@ const ThirdStep = ({
         >
           Submit
         </Button>
+        </div>
+
       </Form>
     </>
   );

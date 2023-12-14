@@ -17,24 +17,24 @@ const CreateLead = () => {
     (data) => {
       form
         .validateFields([
-          "custome_type",
-          "company_name",
-          "Company_business_model",
-          "first_name",
-          "last_name",
-          "phone",
-          "mobile",
-          "email",
-          "Way_to_contact",
-          "prefered_language",
-          "house_owner",
-          "time_to_contact",
-          "citizen_ships_status",
-          "Biliding_type",
-          "is_decision_maker_present",
-          "is_HOA",
-          "service_type",
-          "manual_address",
+          // "custome_type",
+          // "company_name",
+          // "Company_business_model",
+          // "first_name",
+          // "last_name",
+          // "phone",
+          // "mobile",
+          // "email",
+          // "Way_to_contact",
+          // "prefered_language",
+          // "house_owner",
+          // "time_to_contact",
+          // "citizen_ships_status",
+          // "Biliding_type",
+          // "is_decision_maker_present",
+          // "is_HOA",
+          // "service_type",
+          // "manual_address",
         ])
         .then((values) => {
           console.log(values, "valuesvalues");
@@ -53,14 +53,14 @@ const CreateLead = () => {
     console.log("fghjkljhgfghjkljhgf");
     form
       .validateFields([
-        "country",
-        "state",
-        "street_address",
-        "zip_code",
-        "rate",
-        "date",
-        "time_to_contact",
-        "lead_source",
+        // "country",
+        // "state",
+        // "street_address",
+        // "zip_code",
+        // "rate",
+        // "date",
+        // "time_to_contact",
+        // "lead_source",
       ])
       .then((values) => {
         console.log(values, "valuesvalues");
@@ -166,6 +166,7 @@ const CreateLead = () => {
           current={current}
           steps={allSteps}
           next={next}
+          previous={prev}
           form={form}
           sceNext={sceNext}
           //   onSuccess={handleSubmit}  onBack={prev}
@@ -182,6 +183,7 @@ const CreateLead = () => {
           current={current}
           steps={allSteps}
           next={next}
+          previous={prev}
           form={form}
         />
       ),
@@ -235,7 +237,7 @@ const CreateLead = () => {
             marginLeft: "320px",
           }}
         >
-          <Button
+          {/* <Button
             // style={{width:"35%" , backgroundColor:"#2d3282"}}
             htmlType="submit"
             style={{
@@ -247,7 +249,7 @@ const CreateLead = () => {
             onClick={() => prev()}
           >
             Previous
-          </Button>
+          </Button> */}
         </div>
       )}
       {/* {current < steps.length - 1 && (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Checkbox, Form, Input  , Divider} from "antd";
 import { LoginForm  , LoginContainer} from "./loginStyle";
-import logo from "../../Images/whiteLogo.png";
+import logo from "../../Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
 
@@ -31,9 +31,9 @@ const Signin = () => {
   return (
     <LoginContainer>
        <LoginForm>
-      <img src={logo} alt="logo" className="logo" />
+      <img src={logo} alt="logo" className="logo"  />
       <div className="welcomDiv">
-        <h1>User Log In</h1>
+        <h2>User Log In</h2>
         <p>Welcome back! Plese enter your details.</p>
       </div>
       <Form
@@ -47,9 +47,7 @@ const Signin = () => {
         style={{
           maxWidth: 1000,
         }}
-        // initialValues={{
-        //   remember: true,
-        // }}
+
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
@@ -99,7 +97,7 @@ const Signin = () => {
           }}
         >
           <Button type="primary" htmlType="submit" className="login_btn">
-            Submit
+          Sign In
           </Button>
         </Form.Item>
       </Form>

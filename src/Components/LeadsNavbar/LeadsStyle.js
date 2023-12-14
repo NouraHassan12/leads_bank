@@ -36,7 +36,7 @@ export const LeadsNav = styled.div`
             color: #358ee1;
             background-color:#eef4ff;
             border-radius:10px;
-            padding:10px
+            padding:5px 15px
             
           }
         }
