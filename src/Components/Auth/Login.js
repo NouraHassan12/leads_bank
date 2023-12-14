@@ -1,8 +1,9 @@
-import React, { useState , useEffect } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-import { LoginForm } from "./loginStyle";
+import React, { useState, useEffect } from "react";
+import { Button, Checkbox, Form, Input  , Divider} from "antd";
+import { LoginForm  , LoginContainer} from "./loginStyle";
 import logo from "../../Images/whiteLogo.png";
 import { useNavigate } from "react-router-dom";
+import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Signin = () => {
     setLoggedUser(localStorage.getItem("loggedIn"));
 
     await navigate("/home/Leads/AllLeads");
-    window.location.reload()
+    window.location.reload();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -28,8 +29,13 @@ const Signin = () => {
   }, [loggedUser]);
 
   return (
-    <LoginForm>
+    <LoginContainer>
+       <LoginForm>
       <img src={logo} alt="logo" className="logo" />
+      <div className="welcomDiv">
+        <h1>User Log In</h1>
+        <p>Welcome back! Plese enter your details.</p>
+      </div>
       <Form
         name="basic"
         labelCol={{
@@ -97,7 +103,35 @@ const Signin = () => {
           </Button>
         </Form.Item>
       </Form>
+      <div className="registerNow">
+        <p style={{ textAlign: "center" }}>
+          Dont have an account{" "}
+          <span style={{ color: "blue", fontWeight: "600" }}>Register Now</span>
+        </p>
+      </div>
+
+      <div style={{margin:"30px 0px"}}>
+        <div className="suuport_mail">
+          <MailOutlined />
+          <p>Support@BYLDerBank.com</p>
+        </div>
+
+        <div className="suuport_mail">
+          <PhoneOutlined />
+          <p>1-800 BYLDers (295-3377)</p>
+        </div>
+      </div>
+
+     
     </LoginForm>
+
+    <Divider />
+    <div className="privacyAndPolicy">
+      <p>Privacy Policy</p>
+      <p>Terms and Conditions</p>
+    </div>
+    </LoginContainer>
+ 
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-import { SignUpForm } from "./loginStyle";
+import { Button, Checkbox, Form, Input  , Divider} from "antd";
+import { SignUpForm  , SignUpContainer} from "./loginStyle";
 import logo from "../../Images/whiteLogo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const SignUp = () => {
   };
 
   return (
-    <>
+    <SignUpContainer>
       <SignUpForm>
         <img src={logo} alt="logo" className="logo" />
         <Form
@@ -135,13 +135,19 @@ const SignUp = () => {
               span: 16,
             }}
           >
-            <Button type="primary" htmlType="submit" className="login_btn">
+            <Button type="primary" htmlType="submit" className="login_btn" style={{marginBottom:"40px"}}>
               Submit
             </Button>
           </Form.Item>
         </Form>
       </SignUpForm>
-    </>
+
+      <Divider />
+    <div className="privacyAndPolicy">
+      <p>Privacy Policy</p>
+      <p>Terms and Conditions</p>
+    </div>
+    </SignUpContainer>
   );
 };
 

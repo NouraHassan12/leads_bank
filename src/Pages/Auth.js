@@ -112,6 +112,7 @@ export default function Login() {
           </TabPanel>
         </SwipeableViews>
       </Box>
+     
     </AuthPage>
   );
 }
