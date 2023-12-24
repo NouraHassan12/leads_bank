@@ -41,7 +41,7 @@ const ThirdStep = ({
 
         <Form.Item
           label="price"
-          name="price"
+          name="price_percentage"
           rules={[
             {
               required: true,
@@ -51,6 +51,34 @@ const ThirdStep = ({
           <Input type="number" />
         </Form.Item>
 
+        
+        <div style={{ display: "flex" }}>
+          <Form.Item
+            style={{ width: "48%", marginRight: "20px" }}
+            label="commission based"
+            name="commission_based"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            style={{ width: "48%", marginLeft: "20px" }}
+            label="commission type"
+            name="commission_type"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </div>
         <Form.Item
           label="description"
           name="description"
@@ -62,6 +90,9 @@ const ThirdStep = ({
         >
           <Input.TextArea rows={8} />
         </Form.Item>
+
+
+      
 
         <div style={{display:"flex" , justifyContent:"space-around"}}>
         <Button

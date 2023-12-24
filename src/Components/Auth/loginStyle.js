@@ -131,12 +131,24 @@ export const SignUpForm = styled.div`
   }
 
   .registerNow {
-    margin-bottom:30px;
+    margin-bottom:3px;
     p {
       margin: 0px !important;
       text-align: center;
       font-size: 14px;
       color: #667085;
     }
+  }
+
+  .ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select, :where(.css-dev-only-do-not-override-2q8sxy).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select{
+    width:100% !important
+
+  }
+
+  .ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-2q8sxy).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-2q8sxy).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-2q8sxy).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container{
+    width:100% !important
+  }
+  .ant-form-item{
+    margin-bottom:15px !important
   }
 `;

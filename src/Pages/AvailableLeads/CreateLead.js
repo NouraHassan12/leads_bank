@@ -3,12 +3,16 @@ import { Button, message, Steps, theme, Form } from "antd";
 import FirstStep from "../../Components/CreateLeadForm/firstStep";
 import SecondStep from "../../Components/CreateLeadForm/secondStep";
 import ThirdStep from "../../Components/CreateLeadForm/thirdStep";
+import { useDispatch, useSelector } from "react-redux";
+import {create_lead_bank} from "../../Redux/Slices/BankLeadSlice/BankLeadSlice";
+
 
 const CreateLead = () => {
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
   const [data, setData] = useState({});
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   //   const next = () => {
   //     setCurrent(current + 1);
   //   };
@@ -17,27 +21,29 @@ const CreateLead = () => {
     (data) => {
       form
         .validateFields([
-          // "custome_type",
-          // "company_name",
-          // "Company_business_model",
-          // "first_name",
-          // "last_name",
-          // "phone",
-          // "mobile",
-          // "email",
-          // "Way_to_contact",
-          // "prefered_language",
-          // "house_owner",
-          // "time_to_contact",
-          // "citizen_ships_status",
-          // "Biliding_type",
-          // "is_decision_maker_present",
-          // "is_HOA",
-          // "service_type",
-          // "manual_address",
+          "customer_type",
+          "company_name",
+          "Company_business_model",
+          "first_name",
+          "last_name",
+          "phone",
+          "mobile",
+          "email",
+          "way_to_contact",
+          "preferred_language",
+          "house_ownership",
+          "time_to_contact",
+          "citizenship_status",
+          "building_type",
+          "is_decision_maker_present",
+          "is_hoa",
+          "is_active",
+          "service_type",
+          "is_alter_address",
         ])
         .then((values) => {
           console.log(values, "valuesvalues");
+         
           setCurrent(current + 1);
           setData(data);
           console.log(data, "___data");
@@ -53,14 +59,15 @@ const CreateLead = () => {
     console.log("fghjkljhgfghjkljhgf");
     form
       .validateFields([
-        // "country",
-        // "state",
-        // "street_address",
-        // "zip_code",
-        // "rate",
-        // "date",
-        // "time_to_contact",
-        // "lead_source",
+        "country",
+        "state",
+        "location",
+        "street",
+        "street_address",
+        "zip_code",
+        "rate",
+        "last_time_you_communicated",
+        "source",
       ])
       .then((values) => {
         console.log(values, "valuesvalues");
@@ -76,7 +83,7 @@ const CreateLead = () => {
     console.log("final step");
     form
       .validateFields([
-        "custome_type",
+        "customer_type",
         "company_name",
         "Company_business_model",
         "first_name",
@@ -84,30 +91,35 @@ const CreateLead = () => {
         "phone",
         "mobile",
         "email",
-        "Way_to_contact",
-        "prefered_language",
-        "house_owner",
+        "way_to_contact",
+        "preferred_language",
+        "house_ownership",
         "time_to_contact",
-        "citizen_ships_status",
-        "Biliding_type",
+        "citizenship_status",
+        "building_type",
         "is_decision_maker_present",
-        "is_HOA",
+        "is_hoa",
+        "is_active",
         "service_type",
-        "manual_address",
+        "is_alter_address",
         "country",
         "state",
+        "location",
+        "street",
         "street_address",
         "zip_code",
         "rate",
+        "last_time_you_communicated",
         "date",
         "time_to_contact",
-        "lead_source",
+        "source",
         "transaction_type",
-        "price",
+        "price_percentage",
         "description",
       ])
       .then((values) => {
         console.log(values, "valuesvalues");
+        dispatch(create_lead_bank(values))
         // setCurrent(current + 1);
         // setData(data);
       })

@@ -1,13 +1,67 @@
-import React from "react";
-import { Form, Input, Button, Select, Switch } from "antd";
+import React  , {useRef , useEffect} from "react";
+import { Form, Input, Button, Select, Switch, Space  , DatePicker} from "antd";
+import {getServiceTypesAction} from "../../Redux/Slices/ServiceType/ServiceTypeSlice"
+import { useDispatch, useSelector } from "react-redux";
 
 const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
   const { Option } = Select;
+  const dispatch = useDispatch()
+  const ref = useRef();
+  const serviceTypes = useSelector((state) => state.serviceTypes);
   console.log(steps, "stepssteps");
+  console.log(serviceTypes , "serviceTypesserviceTypesserviceTypes")
 
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
   };
+
+  const handleChange = (value ) => {
+    console.log(`selected ${value} ***`);
+
+    console.log(ref , "_____________________ref")
+    console.log(ref.current?.innerText || "ref not set!");
+  };
+
+  useEffect(() => {
+    // console.log(ref , "_____________________ref")
+    // console.log(ref.current?.innerText || "ref not set!");
+    dispatch(getServiceTypesAction());
+  }, []);
+
+  const ontimeChange = (value, dateString) => {
+    console.log("Selected Time: ", value);
+    console.log("Formatted Selected Time: ", dateString);
+  };
+  const onOk = (value) => {
+    console.log("onOk: ", value);
+  };
+
+  const options = [
+    {
+      label: "China",
+      value: "China",
+      emoji: "🇨🇳",
+      desc: "China (中国)",
+    },
+    {
+      label: "USA",
+      value:"USA",
+      emoji: "🇺🇸",
+      desc: "USA (美国)",
+    },
+    {
+      label: "Japan",
+      value: "Japan",
+      emoji: "🇯🇵",
+      desc: "Japan (日本)",
+    },
+    {
+      label: "Korea",
+      value: "Korea",
+      emoji: "🇰🇷",
+      desc: "Korea (韩国)",
+    },
+  ];
 
   return (
     <>
@@ -21,7 +75,7 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
       >
         <Form.Item
           label="Customer type"
-          name="custome_type"
+          name="customer_type"
           rules={[
             {
               required: true,
@@ -29,8 +83,8 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           ]}
         >
           <Select>
-            <Select.Option value="demo">Demo</Select.Option>
-            <Select.Option value="demo2">Demo22</Select.Option>
+            <Select.Option value="Residential">Residential</Select.Option>
+            <Select.Option value="commercial">commercial</Select.Option>
           </Select>
         </Form.Item>
 
@@ -105,7 +159,25 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           </Form.Item>
 
           <Form.Item
-            style={{ width: "48%", marginLeft: "20px" }}
+            style={{ width: "48%", display: "flex" }}
+            label="is phone receives txt"
+            name="is_phone_receives_txt"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Switch defaultChecked onChange={onChange} />
+          </Form.Item>
+
+          {/*  */}
+        </div>
+
+
+        <div style={{ display: "flex" }}>
+        <Form.Item
+            style={{ width: "48%",  }}
             label="mobile"
             name="mobile"
             rules={[
@@ -116,6 +188,21 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           >
             <Input type="number" />
           </Form.Item>
+
+          <Form.Item
+            style={{ width: "48%", display: "flex" }}
+            label="is mobile receives txt"
+            name="is_mobile_receives_txt"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Switch defaultChecked onChange={onChange} />
+          </Form.Item>
+
+          
         </div>
 
         <div style={{ display: "flex" }}>
@@ -140,7 +227,7 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           <Form.Item
             style={{ width: "48%", marginLeft: "20px" }}
             label="Way to contact"
-            name="Way_to_contact"
+            name="way_to_contact"
             rules={[
               {
                 required: true,
@@ -158,7 +245,7 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           <Form.Item
             style={{ width: "48%", marginRight: "20px" }}
             label="prefered language"
-            name="prefered_language"
+            name="preferred_language"
             rules={[
               {
                 required: true,
@@ -173,8 +260,8 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
 
           <Form.Item
             style={{ width: "48%", marginLeft: "20px" }}
-            label="house owner"
-            name="house_owner"
+            label="house ownership"
+            name="house_ownership"
             rules={[
               {
                 required: true,
@@ -182,14 +269,16 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
             ]}
           >
             <Select>
-              <Select.Option value="phone">us citizen</Select.Option>
-              <Select.Option value="email">ex 2 </Select.Option>
+              <Select.Option value="owner">owner</Select.Option>
+              <Select.Option value="rental">rental   </Select.Option>
+              <Select.Option value="Owner With Mortgage">Owner With Mortgage   </Select.Option>
+              
             </Select>
           </Form.Item>
         </div>
 
         <div style={{ display: "flex" }}>
-          <Form.Item
+          {/* <Form.Item
             style={{ width: "48%", marginRight: "20px" }}
             label="time to contact"
             name="time_to_contact"
@@ -203,12 +292,31 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
               <Select.Option value="phone">5:00 pm</Select.Option>
               <Select.Option value="email">6:00 pm</Select.Option>
             </Select>
+          </Form.Item> */}
+
+<Form.Item
+               style={{ width: "48%", marginRight: "20px" }}
+               label="time to contact"
+               name="time_to_contact"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <DatePicker
+              style={{ width: "100%" }}
+              showTime
+              format="YYYY-MM-DD HH:mm"
+              onChange={ontimeChange}
+              onOk={onOk}
+            />
           </Form.Item>
 
           <Form.Item
             style={{ width: "48%", marginLeft: "20px" }}
             label="citizen ships status"
-            name="citizen_ships_status"
+            name="citizenship_status"
             rules={[
               {
                 required: true,
@@ -216,15 +324,16 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
             ]}
           >
             <Select>
-              <Select.Option value="phone">us citizen</Select.Option>
-              <Select.Option value="email">ex 2 </Select.Option>
+              <Select.Option value="US_CITIZEN">US CITIZEN</Select.Option>
+              <Select.Option value="LAWFUL_PERMANENT_RESIDENT_ALIEN">LAWFUL PERMANENT RESIDENT ALIEN </Select.Option>
+              <Select.Option value="other">other</Select.Option>
             </Select>
           </Form.Item>
         </div>
 
         <Form.Item
           label="Biliding type"
-          name="Biliding_type"
+          name="building_type"
           rules={[
             {
               required: true,
@@ -232,9 +341,47 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           ]}
         >
           <Select>
-            <Select.Option value="demo">single-family</Select.Option>
-            <Select.Option value="demo2">residence</Select.Option>
+            <Select.Option value="single_family">single family</Select.Option>
+            <Select.Option value="residence">residence</Select.Option>
+            <Select.Option value="trailer">trailer</Select.Option>
+            <Select.Option value="town_home">town_home</Select.Option>
+            
           </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Service type"
+          name="service_type"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select
+        
+            mode="multiple"
+            style={{
+              width: "100%",
+            }}
+            placeholder="select Service type"
+            // defaultValue={["china"]}
+            
+            optionLabelProp="label"
+            options={options}
+            optionRender={(option) => (
+             
+              <Space ref={ref}  value={option} >
+                <span role="img"   aria-label={option.data.label}>
+                  {option.data.emoji}
+                </span>
+                {option.data.desc}
+              </Space>
+              
+            )}
+            onChange={handleChange}
+           
+          />
         </Form.Item>
 
         <div style={{ display: "flex" }}>
@@ -254,7 +401,7 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           <Form.Item
             style={{ width: "48%", display: "flex" }}
             label="is HOA?"
-            name="is_HOA"
+            name="is_hoa"
             rules={[
               {
                 required: true,
@@ -265,26 +412,26 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
           </Form.Item>
         </div>
 
-        <Form.Item
-          label="Service type"
-          name="service_type"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value="demo">battery</Select.Option>
-            <Select.Option value="demo2">solar</Select.Option>
-          </Select>
-        </Form.Item>
+       
 
         <div style={{ display: "flex" }}>
           <Form.Item
             style={{ width: "48%", display: "flex" }}
-            label="manual address"
-            name="manual_address"
+            label="is alter address"
+            name="is_alter_address"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Switch defaultChecked onChange={onChange} />
+          </Form.Item>
+
+          <Form.Item
+            style={{ width: "48%", display: "flex" }}
+            label="is active?"
+            name="is_active"
             rules={[
               {
                 required: true,
@@ -296,7 +443,12 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form }) => {
         </div>
 
         {current < steps - 1 && (
-          <Button  style={{width:"70%" , backgroundColor:"#2d3282"}} type="primary" htmlType="submit" onClick={() => next()}>
+          <Button
+            style={{ width: "70%", backgroundColor: "#2d3282" }}
+            type="primary"
+            htmlType="submit"
+            onClick={() => next()}
+          >
             Next
           </Button>
         )}

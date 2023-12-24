@@ -4,18 +4,21 @@ import { LoginForm  , LoginContainer} from "./loginStyle";
 import logo from "../../Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import {login_user} from "../../Redux/Slices/AuthSlice/LoginSlice"
 
 const Signin = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loggedUser, setLoggedUser] = useState();
+  const Authorized_user = useSelector((state) => state.auth_user);
+  console.log(Authorized_user , "_______Authorized_user")
 
   const onFinish = async (values) => {
     await console.log("Success:", values);
-    await localStorage.setItem("loggedIn", true);
-    setLoggedUser(localStorage.getItem("loggedIn"));
-
-    await navigate("/home/Leads/AllLeads");
-    window.location.reload();
+    await dispatch(login_user(values));
+  //  await navigate("/home/Leads/AllLeads");
+  //   window.location.reload();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -54,8 +57,8 @@ const Signin = () => {
         layout="vertical"
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="email"
+          name="email"
           rules={[
             {
               required: true,

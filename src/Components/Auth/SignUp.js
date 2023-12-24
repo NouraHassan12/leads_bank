@@ -1,17 +1,49 @@
 import React from "react";
-import { Button, Checkbox, Form, Input, Divider } from "antd";
+import { Button, Checkbox, Form, Input, Divider, Upload, Select } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import { SignUpForm, SignUpContainer } from "./loginStyle";
 import logo from "../../Images/logo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { register_user } from "../../Redux/Slices/AuthSlice/registrationSlice";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+
+  const prefixSelector = (
+    <Form.Item name="country_code" noStyle
+    rules={[
+      {
+        required: true,
+        message: "Please select country code!",
+      },
+    ]}
+    >
+      <Select
+        style={{
+          width: 70,
+        }}
+      >
+        <Select.Option value="86">+86</Select.Option>
+        <Select.Option value="87">+87</Select.Option>
+      </Select>
+    </Form.Item>
+  );
 
   const onFinish = async (values) => {
     await console.log("Success:", values);
-    await localStorage.setItem("loggedIn", true);
+    await dispatch(register_user(values));
+    //await localStorage.setItem("loggedIn", true);
 
-    await navigate("/home/Leads/AllLeads");
+    //await navigate("/home/Leads/AllLeads");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -27,23 +59,26 @@ const SignUp = () => {
         </div>
         <Form
           name="basic"
-          // labelCol={{
-          //   span: 8,
-          // }}
-          // wrapperCol={{
-          //   span: 16,
-          // }}
-          // style={{
-          //   maxWidth: 1000,
-          // }}
-          // initialValues={{
-          //   remember: true,
-          // }}
+
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
           layout="vertical"
         >
+          <Form.Item
+            style={{ width: "400px", margin: "0px 0px  10px " }}
+            // label="Upload"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+          >
+            <Upload action="/upload.do" listType="picture-card">
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item>
+
           <div style={{ display: "flex" }}>
             <Form.Item
               style={{ width: "200px", margin: "0px 0px  10px " }}
@@ -90,42 +125,64 @@ const SignUp = () => {
             <Input />
           </Form.Item>
 
+         
+
           <Form.Item
-            label="phone"
             name="phone"
+            label="Phone Number"
             rules={[
               {
                 required: true,
-                message: "Please input your first name!",
+                message: "Please input your phone number!",
               },
             ]}
           >
-            <Input type="number" />
+            <Input
+              addonBefore={prefixSelector}
+              style={{
+                width: "100%",
+              }}
+            />
           </Form.Item>
           <div style={{ display: "flex" }}>
             <Form.Item
               style={{ width: "200px", margin: "0px 0px  10px " }}
-              label="Password"
               name="password"
+              label="Password"
               rules={[
                 {
                   required: true,
                   message: "Please input your password!",
                 },
               ]}
+              hasFeedback
             >
               <Input.Password />
             </Form.Item>
 
             <Form.Item
               style={{ width: "200px", margin: "0px 0px 0px 10px " }}
-              label="confirm password"
-              name="confirm_password"
+              name="password_confirmation"
+              label="Confirm Password"
+              dependencies={["password"]}
+              hasFeedback
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: "Please confirm your password!",
                 },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error(
+                        "The new password that you entered do not match!"
+                      )
+                    );
+                  },
+                }),
               ]}
             >
               <Input.Password />
@@ -149,12 +206,11 @@ const SignUp = () => {
           </Form.Item>
         </Form>
         <div className="registerNow">
-        <p style={{ textAlign: "center" }}>
-        Already have an account?{" "}
-          <span style={{ color: "blue", fontWeight: "600" }}>  Sign in</span>
-         
-        </p>
-      </div>
+          <p style={{ textAlign: "center" }}>
+            Already have an account?{" "}
+            <span style={{ color: "blue", fontWeight: "600" }}> Sign in</span>
+          </p>
+        </div>
       </SignUpForm>
 
       <Divider />
