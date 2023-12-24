@@ -14,6 +14,7 @@ const SecondStep = ({
   setCurrent,
   sceNext,
   previous,
+  set_last_time_you_communicated
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState();
@@ -22,6 +23,7 @@ const SecondStep = ({
   const onChange = (value, dateString) => {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
+    set_last_time_you_communicated(dateString)
   };
   const onOk = (value) => {
     console.log("onOk: ", value);
@@ -80,27 +82,27 @@ const SecondStep = ({
           <Form.Item
             style={{ width: "48%", marginRight: "20px" }}
             label="country"
-            name="country"
+            name="country_id"
             rules={[
               {
                 required: true,
               },
             ]}
           >
-            <Input />
+            <Input  type="number" />
           </Form.Item>
 
           <Form.Item
             style={{ width: "48%", marginLeft: "20px" }}
             label="state"
-            name="state"
+            name="state_id"
             rules={[
               {
                 required: true,
               },
             ]}
           >
-            <Input />
+            <Input type="number"  />
           </Form.Item>
         </div>
 
@@ -203,7 +205,7 @@ const SecondStep = ({
             <DatePicker
               style={{ width: "100%" }}
               showTime
-              format="YYYY-MM-DD HH:mm"
+              format="YYYY-MM-DD HH:mm:ss"
               onChange={onChange}
               onOk={onOk}
             />

@@ -5,4 +5,5 @@ export const create_bank_lead = `${baseURL}/leads-bank/store`;
 export const service_type = `${baseURL}/leads-bank/service-type`;
 export const countries = `${baseURL}/countries`;
 export const cities = `${baseURL}/countries/cities`;
+export const show_sold_lead = `${baseURL}/leads-bank/sold-leads`;
 

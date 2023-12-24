@@ -4,7 +4,8 @@ import loginSliceReducer from "./Slices/AuthSlice/LoginSlice";
 import leadbankSliceReducer from "./Slices/BankLeadSlice/BankLeadSlice";
 import serviceTypesSliceReducer from "./Slices/ServiceType/ServiceTypeSlice"
 import countriesSliceReducer from "./Slices/CountriesAndStatesSlice/CountriesAndStatesSlice";
-import citiesSliceReducer from "./Slices/CountriesAndStatesSlice/CitiesSlice"
+import citiesSliceReducer from "./Slices/CountriesAndStatesSlice/CitiesSlice";
+import  sold_leadsSliceReducer from "./Slices/SoldLeadsSlice/SoldLeadsSlice"
 
 export const store = configureStore({
     reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
       lead_bank :leadbankSliceReducer,
       serviceTypes : serviceTypesSliceReducer,
       countries : countriesSliceReducer,
-      cities : citiesSliceReducer
+      cities : citiesSliceReducer,
+      sold_leads : sold_leadsSliceReducer
     
     },
   });

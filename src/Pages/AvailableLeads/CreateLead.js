@@ -4,8 +4,7 @@ import FirstStep from "../../Components/CreateLeadForm/firstStep";
 import SecondStep from "../../Components/CreateLeadForm/secondStep";
 import ThirdStep from "../../Components/CreateLeadForm/thirdStep";
 import { useDispatch, useSelector } from "react-redux";
-import {create_lead_bank} from "../../Redux/Slices/BankLeadSlice/BankLeadSlice";
-
+import { create_lead_bank } from "../../Redux/Slices/BankLeadSlice/BankLeadSlice";
 
 const CreateLead = () => {
   const { token } = theme.useToken();
@@ -13,6 +12,9 @@ const CreateLead = () => {
   const [data, setData] = useState({});
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const [time_to_contact, set_time_to_contact] = useState();
+  const [last_time_you_communicated, set_last_time_you_communicated] =
+    useState();
   //   const next = () => {
   //     setCurrent(current + 1);
   //   };
@@ -43,7 +45,7 @@ const CreateLead = () => {
         ])
         .then((values) => {
           console.log(values, "valuesvalues");
-         
+
           setCurrent(current + 1);
           setData(data);
           console.log(data, "___data");
@@ -59,8 +61,8 @@ const CreateLead = () => {
     console.log("fghjkljhgfghjkljhgf");
     form
       .validateFields([
-        "country",
-        "state",
+        "country_id",
+        "state_id",
         "location",
         "street",
         "street_address",
@@ -102,8 +104,8 @@ const CreateLead = () => {
         "is_active",
         "service_type",
         "is_alter_address",
-        "country",
-        "state",
+        "country_id",
+        "state_id",
         "location",
         "street",
         "street_address",
@@ -119,7 +121,8 @@ const CreateLead = () => {
       ])
       .then((values) => {
         console.log(values, "valuesvalues");
-        dispatch(create_lead_bank(values))
+        console.log(values.time_to_contact, "___time_to_contact");
+        dispatch(create_lead_bank({ ...values, time_to_contact , last_time_you_communicated }));
         // setCurrent(current + 1);
         // setData(data);
       })
@@ -160,6 +163,7 @@ const CreateLead = () => {
       title: "Basic Iformation",
       content: (
         <FirstStep
+          set_time_to_contact={set_time_to_contact}
           data={data}
           onSuccess={next}
           current={current}
@@ -173,6 +177,7 @@ const CreateLead = () => {
       title: "Imformation Address",
       content: (
         <SecondStep
+          set_last_time_you_communicated={set_last_time_you_communicated}
           data={data}
           onSuccess={next}
           current={current}
@@ -228,7 +233,7 @@ const CreateLead = () => {
             maxHeight: "235px",
             marginLeft: "40px",
             marginTop: "40px",
-           // background: "aliceblue",
+            // background: "aliceblue",
             padding: "16px",
             borderRadius: "11px",
           }}

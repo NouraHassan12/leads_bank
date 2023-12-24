@@ -8,6 +8,7 @@ import MainPage from "./Pages/MainPage";
 import Dashboard from "./Pages/DashboardPage";
 import LeadsPage from "./Pages/LeadsPage";
 import LeadsList from "./Pages/AvailableLeads/LeadsList";
+import SoldLeadsList from "./Pages/Leads sold/soldLeadList"
 import CreateLead from "./Pages/AvailableLeads/CreateLead";
 import { GlobalStyle } from "./GlobalStyle/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +44,7 @@ function App() {
             <Route path="Dashboard" element={<Dashboard />} />
             <Route path="Leads" element={<LeadsPage />}>
               <Route path="AllLeads" element={<LeadsList />} />
+              <Route path="SoldLeadsList" element={<SoldLeadsList />} />
               <Route path="CreateLead" element={<CreateLead />} />
             </Route>
           </Route>

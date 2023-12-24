@@ -44,6 +44,16 @@ function LeadsNavbar() {
             <Box 
             sx={{ flexGrow: 1, display: { xs: "flex" } }}
             >
+            
+
+              <MenuItem onClick={handleCloseNavMenu}>
+                {/* <Typography textAlign="center" className="Typography">
+                  create lead
+                </Typography> */}
+                <NavLink to={`CreateLead`}>Add new lead </NavLink>
+              </MenuItem>
+
+
               <MenuItem onClick={handleCloseNavMenu}>
                 <NavLink to={`AllLeads`}>
                Available Leads
@@ -52,10 +62,10 @@ function LeadsNavbar() {
               </MenuItem>
 
               <MenuItem onClick={handleCloseNavMenu}>
-                {/* <Typography textAlign="center" className="Typography">
-                  create lead
-                </Typography> */}
-                <NavLink to={`CreateLead`}>Add new lead </NavLink>
+                <NavLink to={`SoldLeadsList`}>
+                Leads sold
+                </NavLink>
+       
               </MenuItem>
             </Box>
 
