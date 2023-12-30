@@ -8,16 +8,14 @@ import MainPage from "./Pages/MainPage";
 import Dashboard from "./Pages/DashboardPage";
 import LeadsPage from "./Pages/LeadsPage";
 import LeadsList from "./Pages/AvailableLeads/LeadsList";
-import SoldLeadsList from "./Pages/Leads sold/soldLeadList"
+import SoldLeadsList from "./Pages/Leads sold/soldLeadList";
 import CreateLead from "./Pages/AvailableLeads/CreateLead";
 import { GlobalStyle } from "./GlobalStyle/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const [auth, setAuth] = useState();
-  const Authorized_user = useSelector(
-    (state) => state.auth_user
-  );
+  const Authorized_user = useSelector((state) => state.auth_user);
 
   console.log(Authorized_user, "Authorized_user in app.js");
 
@@ -35,7 +33,7 @@ function App() {
         draggable
         pauseOnHover
       />
-      {Authorized_user ? (
+      {Authorized_user?.auth_user !== null ? (
         <Routes>
           <Route path="*" element={<Navigate to="/home/Leads/AllLeads" />} />
           <Route path="/" element={<Navigate to="/home/Leads/AllLeads" />} />

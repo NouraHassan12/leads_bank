@@ -55,7 +55,7 @@ function LeadsNavbar() {
 
 
               <MenuItem onClick={handleCloseNavMenu}>
-                <NavLink to={`AllLeads`}>
+                <NavLink to={`AllLeads/?page=1`}>
                Available Leads
                 </NavLink>
        

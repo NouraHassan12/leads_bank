@@ -3,8 +3,19 @@ import { Form, Input, Button, Select, Switch, Space, DatePicker } from "antd";
 import { getServiceTypesAction } from "../../Redux/Slices/ServiceType/ServiceTypeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import {AddLeadContainer} from "./CreateLeadStyle"
+ import NumberFormat from "react-number-format";
+//import * as NumberFormat from 'react-number-format'
 
-const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_contact }) => {
+
+import {
+
+  TextField,
+ 
+} from "@mui/material";
+
+const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_contact ,  set_phone, set_is_active,
+  set_mobile  , set_is_hoa , set_is_decision_maker_present , set_is_mobile_receives_txt , set_is_phone_receives_txt}) => {
   const { Option } = Select;
   const dispatch = useDispatch();
   const ref = useRef();
@@ -84,7 +95,8 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_c
   // ];
 
   return (
-    <>
+    <AddLeadContainer>
+    
       <Form
         form={form}
         onSuccess={onSuccess}
@@ -167,7 +179,6 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_c
         <div style={{ display: "flex" }}>
           <Form.Item
             style={{ width: "48%", marginRight: "20px" }}
-            label="phone"
             name="phone"
             rules={[
               {
@@ -175,20 +186,32 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_c
               },
             ]}
           >
-            <Input type="number" />
+            {/* <Input type="number" /> */}
+            <NumberFormat
+              format="+1 (###) ###-####"
+              fullWidth
+              allowEmptyFormatting
+              customInput={TextField}
+              mask="_"
+              label="Phone"
+              // value={data.phone}
+              // onChange={(e) => setData({ ...data, phone: e.target.value })}
+              onValueChange={(values) => {
+               console.log(values?.floatValue , "_______phone num value")
+               set_phone(values?.floatValue)
+              }}
+            />
           </Form.Item>
 
           <Form.Item
             style={{ width: "48%", display: "flex" }}
             label="is phone receives txt"
             name="is_phone_receives_txt"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+
           >
-            <Switch defaultChecked onChange={onChange} />
+            <Switch   onChange={(checked)=>{
+            
+            set_is_phone_receives_txt(checked)}} />
           </Form.Item>
 
           {/*  */}
@@ -197,7 +220,6 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_c
         <div style={{ display: "flex" }}>
           <Form.Item
             style={{ width: "48%" }}
-            label="mobile"
             name="mobile"
             rules={[
               {
@@ -205,20 +227,31 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_c
               },
             ]}
           >
-            <Input type="number" />
+            <NumberFormat
+              format="+1 (###) ###-####"
+              fullWidth
+              allowEmptyFormatting
+              customInput={TextField}
+              mask="_"
+              label="mobile"
+              // value={data.phone}
+              // onChange={(e) => setData({ ...data, phone: e.target.value })}
+              onValueChange={(values) => {
+               console.log(values?.floatValue , "_______phone num value")
+               set_mobile(values?.floatValue)
+              }}
+            />
           </Form.Item>
 
           <Form.Item
             style={{ width: "48%", display: "flex" }}
             label="is mobile receives txt"
             name="is_mobile_receives_txt"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+
           >
-            <Switch defaultChecked onChange={onChange} />
+            <Switch  onChange={(checked)=>{
+            
+            set_is_mobile_receives_txt(checked)}} />
           </Form.Item>
         </div>
 
@@ -410,54 +443,38 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_c
             style={{ width: "48%", display: "flex" }}
             label="is decision maker present?"
             name="is_decision_maker_present"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
           >
-            <Switch defaultChecked onChange={onChange} />
+            <Switch  onChange={(checked)=>{
+             
+             set_is_decision_maker_present(checked)}} />
+
+            
           </Form.Item>
 
           <Form.Item
             style={{ width: "48%", display: "flex" }}
             label="is HOA?"
             name="is_hoa"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
           >
-            <Switch defaultChecked onChange={onChange} />
+            <Switch  onChange={(checked)=>{
+             
+              set_is_hoa(checked)}} />
+            
           </Form.Item>
         </div>
 
         <div style={{ display: "flex" }}>
-          <Form.Item
-            style={{ width: "48%", display: "flex" }}
-            label="is alter address"
-            name="is_alter_address"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Switch defaultChecked onChange={onChange} />
-          </Form.Item>
+         
 
           <Form.Item
             style={{ width: "48%", display: "flex" }}
             label="is active?"
             name="is_active"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+
           >
-            <Switch defaultChecked onChange={onChange} />
+            <Switch  onChange={(checked)=>{
+            
+              set_is_active(checked)}} />
           </Form.Item>
         </div>
 
@@ -472,7 +489,7 @@ const FirstStep = ({ data, onSuccess, current, steps, next, form , set_time_to_c
           </Button>
         )}
       </Form>
-    </>
+    </AddLeadContainer>
   );
 };
 

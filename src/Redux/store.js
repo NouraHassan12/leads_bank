@@ -5,7 +5,9 @@ import leadbankSliceReducer from "./Slices/BankLeadSlice/BankLeadSlice";
 import serviceTypesSliceReducer from "./Slices/ServiceType/ServiceTypeSlice"
 import countriesSliceReducer from "./Slices/CountriesAndStatesSlice/CountriesAndStatesSlice";
 import citiesSliceReducer from "./Slices/CountriesAndStatesSlice/CitiesSlice";
-import  sold_leadsSliceReducer from "./Slices/SoldLeadsSlice/SoldLeadsSlice"
+import statesSliceReducer from "./Slices/CountriesAndStatesSlice/stateSlice"
+import  sold_leadsSliceReducer from "./Slices/SoldLeadsSlice/SoldLeadsSlice";
+
 
 export const store = configureStore({
     reducer: {
@@ -16,7 +18,8 @@ export const store = configureStore({
       serviceTypes : serviceTypesSliceReducer,
       countries : countriesSliceReducer,
       cities : citiesSliceReducer,
-      sold_leads : sold_leadsSliceReducer
+      sold_leads : sold_leadsSliceReducer,
+      states :statesSliceReducer
     
     },
   });

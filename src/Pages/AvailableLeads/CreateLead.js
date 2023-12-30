@@ -12,9 +12,33 @@ const CreateLead = () => {
   const [data, setData] = useState({});
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const [phone, set_phone] = useState();
+  const [mobile, set_mobile] = useState();
   const [time_to_contact, set_time_to_contact] = useState();
   const [last_time_you_communicated, set_last_time_you_communicated] =
     useState();
+  const [country_id, set_country_id] = useState();
+  const [city_id, set_city_id] = useState();
+  const [addressSwitch, setAddressSwitch] = useState();
+  const [coordinates, setCoordinates] = React.useState({
+    lat: 38.5610895,
+    lng: -82.577286,
+  });
+  const [address, setAddress] = React.useState("");
+  const [full_address, setFullAddress] = React.useState("");
+  const [zip_code, setPostalCode] = React.useState("");
+  const [street, setStreetLoc] = React.useState("");
+  const [country, setCountry] = React.useState("");
+  const [state, setState] = React.useState("");
+  const [is_active, set_is_active] = useState(false);
+  const [is_hoa, set_is_hoa] = useState(false);
+  const [is_decision_maker_present, set_is_decision_maker_present] = useState(false);
+  const [is_phone_receives_txt , set_is_phone_receives_txt] = useState(false);
+  const [is_mobile_receives_txt , set_is_mobile_receives_txt] = useState(false)
+
+
+  // building_coordinates
+
   //   const next = () => {
   //     setCurrent(current + 1);
   //   };
@@ -23,31 +47,31 @@ const CreateLead = () => {
     (data) => {
       form
         .validateFields([
-          "customer_type",
-          "company_name",
-          "Company_business_model",
-          "first_name",
-          "last_name",
-          "phone",
-          "mobile",
-          "email",
-          "way_to_contact",
-          "preferred_language",
-          "house_ownership",
-          "time_to_contact",
-          "citizenship_status",
-          "building_type",
-          "is_decision_maker_present",
-          "is_hoa",
-          "is_active",
-          "service_type",
-          "is_alter_address",
+          //   // "customer_type",
+          //   "company_name",
+          //   "Company_business_model",
+          //   "first_name",
+          //   "last_name",
+          //   "phone",
+          //   "mobile",
+          //   "email",
+          //   "way_to_contact",
+          //   "preferred_language",
+          //   "house_ownership",
+          //   "time_to_contact",
+          //   "citizenship_status",
+          //   "building_type",
+          //  // "is_decision_maker_present",
+          //  // "is_hoa",
+          // //  "is_active",
+          //   "service_type",
+          //  // "is_alter_address",
         ])
         .then((values) => {
           console.log(values, "valuesvalues");
 
           setCurrent(current + 1);
-          setData(data);
+          // setData(data);
           console.log(data, "___data");
         })
         .catch((errorInfo) => {
@@ -61,15 +85,15 @@ const CreateLead = () => {
     console.log("fghjkljhgfghjkljhgf");
     form
       .validateFields([
-        "country_id",
-        "state_id",
-        "location",
-        "street",
-        "street_address",
-        "zip_code",
-        "rate",
-        "last_time_you_communicated",
-        "source",
+        // "country_id",
+        // "state_id",
+        // "location",
+        // "street",
+        // "street_address",
+        // "zip_code",
+        // "rate",
+        // "last_time_you_communicated",
+        // "source",
       ])
       .then((values) => {
         console.log(values, "valuesvalues");
@@ -91,7 +115,9 @@ const CreateLead = () => {
         "first_name",
         "last_name",
         "phone",
+        // "is_phone_receives_txt",
         "mobile",
+        // "is_mobile_receives_txt",
         "email",
         "way_to_contact",
         "preferred_language",
@@ -99,17 +125,19 @@ const CreateLead = () => {
         "time_to_contact",
         "citizenship_status",
         "building_type",
-        "is_decision_maker_present",
-        "is_hoa",
-        "is_active",
+        // "is_decision_maker_present",
+        //  "is_hoa",
+        // "is_active",
         "service_type",
-        "is_alter_address",
+        //  "is_alter_address",
         "country_id",
         "state_id",
         "location",
         "street",
         "street_address",
         "zip_code",
+        "alter_city",
+        "alter_zip_code",
         "rate",
         "last_time_you_communicated",
         "date",
@@ -122,7 +150,26 @@ const CreateLead = () => {
       .then((values) => {
         console.log(values, "valuesvalues");
         console.log(values.time_to_contact, "___time_to_contact");
-        dispatch(create_lead_bank({ ...values, time_to_contact , last_time_you_communicated }));
+        dispatch(
+          create_lead_bank({
+            ...values,
+            phone: phone,
+            mobile: mobile,
+            time_to_contact,
+            last_time_you_communicated,
+            country_id: 231,
+            state_id: city_id || street,
+            building_coordinates: coordinates,
+            zip_code: zip_code,
+            street: street,
+            location: full_address,
+            is_active: is_active,
+            is_hoa: is_hoa,
+            is_decision_maker_present: is_decision_maker_present,
+            is_phone_receives_txt:is_phone_receives_txt,
+            is_mobile_receives_txt : is_mobile_receives_txt
+          })
+        );
         // setCurrent(current + 1);
         // setData(data);
       })
@@ -138,14 +185,14 @@ const CreateLead = () => {
   const prev = useCallback(
     (data) => {
       console.log("previousssssssssssssss");
-      setData(data);
+      // setData(data);
       setCurrent(current - 1);
     }
     // [step]
   );
 
   const handleSubmit = useCallback((data) => {
-    setData(data);
+    // setData(data);
     console.log("ubmiteddddddddddddddddddddddddddddd Data", data);
   }, []);
 
@@ -163,8 +210,15 @@ const CreateLead = () => {
       title: "Basic Iformation",
       content: (
         <FirstStep
+        set_is_mobile_receives_txt={set_is_mobile_receives_txt}
+        set_is_phone_receives_txt={set_is_phone_receives_txt}
+          set_is_decision_maker_present={set_is_decision_maker_present}
+          set_is_hoa={set_is_hoa}
+          set_is_active={set_is_active}
+          set_phone={set_phone}
+          set_mobile={set_mobile}
           set_time_to_contact={set_time_to_contact}
-          data={data}
+          // data={data}
           onSuccess={next}
           current={current}
           steps={allSteps}
@@ -177,8 +231,28 @@ const CreateLead = () => {
       title: "Imformation Address",
       content: (
         <SecondStep
+          address={address}
+          setAddress={setAddress}
+          full_address={full_address}
+          setFullAddress={setFullAddress}
+          zip_code={zip_code}
+          setPostalCode={setPostalCode}
+          street={street}
+          setStreetLoc={setStreetLoc}
+          country={country}
+          setCountry={setCountry}
+          state={state}
+          setState={setState}
+          coordinates={coordinates}
+          setCoordinates={setCoordinates}
           set_last_time_you_communicated={set_last_time_you_communicated}
-          data={data}
+          set_country_id={set_country_id}
+          set_city_id={set_city_id}
+          city_id={city_id}
+          setAddressSwitch={setAddressSwitch}
+          addressSwitch={addressSwitch}
+          country_id={country_id}
+          // data={data}
           onSuccess={next}
           current={current}
           steps={allSteps}
@@ -195,7 +269,7 @@ const CreateLead = () => {
       content: (
         <ThirdStep
           finalStep={finalStep}
-          data={data}
+          // data={data}
           onSuccess={next}
           current={current}
           steps={allSteps}

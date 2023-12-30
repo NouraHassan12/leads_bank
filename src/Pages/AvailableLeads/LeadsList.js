@@ -1,116 +1,135 @@
-import React from "react";
-import { Table } from "antd";
+import React, { useEffect } from "react";
+import { EditOutlined } from "@ant-design/icons";
+import { DeleteFilled } from "@ant-design/icons";
+import { useLocation , useSearchParams } from "react-router-dom";
+import { useParams ,  } from 'react-router';
+import { Table , Pagination , Space } from "antd";
+import { getAvailableLeadsAction } from "../../Redux/Slices/BankLeadSlice/BankLeadSlice";
+import { useDispatch , useSelector } from "react-redux";
+import { useState } from "react";
 const LeadsList = () => {
+  const dispatch = useDispatch();
+  // const router = 
+  const lead_bank_list = useSelector((state) => state.lead_bank);
+  const location = useLocation();
+  const [page , set_page] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams({page:1});
+  console.log(searchParams, "searchParams")
+
+
+
+  const params= useParams()
+  console.log(location , "::location" , "paramsparams" , params.page)
+
+
+  useEffect(() => {
+  set_page(1);
+  setSearchParams({ page : 1 });
+  }, []);
+
+  useEffect(() => {
+    
+    set_page(lead_bank_list?.lead_bank?.data?.current_page);
+    
+    setSearchParams({ page :lead_bank_list?.lead_bank?.data?.current_page });
+    }, []);
+
+  useEffect(() => {
+
+    const reqData = { page: page };
+    dispatch(getAvailableLeadsAction(reqData));
+    setSearchParams({ page :page });
+  }, [page]);
+
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      //   filters: [
-      //     {
-      //       text: "Joe",
-      //       value: "Joe",
-      //     },
-      //     {
-      //       text: "Jim",
-      //       value: "Jim",
-      //     },
-      //     {
-      //       text: "Submenu",
-      //       value: "Submenu",
-      //       children: [
-      //         {
-      //           text: "Green",
-      //           value: "Green",
-      //         },
-      //         {
-      //           text: "Black",
-      //           value: "Black",
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // specify the condition of filtering result
-      // here is that finding the name started with `value`
-      //  onFilter: (value, record) => record.name.indexOf(value) === 0,
-      //   sorter: (a, b) => a.name.length - b.name.length,
-      //   sortDirections: ["descend"],
+      title: "first Name",
+      dataIndex: "first_name",
+
     },
-    { title: "service type", dataIndex: "service_type" },
+    { title: "last name", dataIndex: "last_name" },
     { title: "transaction type", dataIndex: "transaction_type" },
-    { title: "price or percentage", dataIndex: "price_percentage" ,   defaultSortOrder: "descend",
-    sorter: (a, b) => a.price_percentage - b.price_percentage,},
+    {
+      title: "price percentage",
+      dataIndex: "price_percentage",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.price_percentage - b.price_percentage,
+    },
     { title: "status", dataIndex: "status" },
+    { title: "edit", dataIndex:"", render: (record) => (
+      <Space size="middle">
+        <EditOutlined
+          style={{ fontSize: "16px", cursor: "pointer" }}
+          user={record}
+        />
+        <DeleteFilled
+          style={{ fontSize: "16px", cursor: "pointer" }}
+          user={record}
+        />
+      </Space>
+    )},
+
     // {
-    //   title: "Age",
-    //   dataIndex: "age",
-    //   defaultSortOrder: "descend",
-    //   sorter: (a, b) => a.age - b.age,
+    //   title: "Address",
+    //   dataIndex: "address",
+
     // },
-    {
-      title: "Address",
-      dataIndex: "address",
-      //   filters: [
-      //     {
-      //       text: "London",
-      //       value: "London",
-      //     },
-      //     {
-      //       text: "New York",
-      //       value: "New York",
-      //     },
-      //   ],
-      //   onFilter: (value, record) => record.address.indexOf(value) === 0,
-    },
   ];
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      service_type : "solar" , 
-      transaction_type : "immediate",
-      price_percentage  : "1900$", 
-   
-      address: "New York No. 1 Lake Park",
-      status : "active"
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      service_type : "solar" , 
-      transaction_type : "commission based",
-      price_percentage  : "1700$",
-   
-      address: "London No. 1 Lake Park",
-      status : "warning"
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      service_type : "solar" , 
-      transaction_type : "immediate",
-      price_percentage  : "1500$",
-      status : "warning"
-    
-    },
-    {
-      key: "4",
-      name: "Jim Red",
-      service_type : "solar" ,
-      transaction_type : "commission based", 
-      price_percentage  : "1300$",
-      
-      address: "London No. 2 Lake Park",
-      status : "active"
-    },
-  ];
-  const onChange = (pagination, filters, sorter, extra) => {
-    console.log("params", pagination, filters, sorter, extra);
+  const data = 
+    // {
+    //   key: "1",
+    //   name: "John Brown",
+    //   service_type: "solar",
+    //   transaction_type: "immediate",
+    //   price_percentage: "1900$",
+
+    //   address: "New York No. 1 Lake Park",
+    //   status: "active",
+    // },
+    // {
+    //   key: "2",
+    //   name: "Jim Green",
+    //   service_type: "solar",
+    //   transaction_type: "commission based",
+    //   price_percentage: "1700$",
+
+    //   address: "London No. 1 Lake Park",
+    //   status: "warning",
+    // },
+    // {
+    //   key: "3",
+    //   name: "Joe Black",
+    //   service_type: "solar",
+    //   transaction_type: "immediate",
+    //   price_percentage: "1500$",
+    //   status: "warning",
+    // },
+    // {
+    //   key: "4",
+    //   name: "Jim Red",
+    //   service_type: "solar",
+    //   transaction_type: "commission based",
+    //   price_percentage: "1300$",
+
+    //   address: "London No. 2 Lake Park",
+    //   status: "active",
+    // },
+    lead_bank_list?.lead_bank?.data?.data
+  ;
+  const onChange = ( filters, sorter) => {
+    console.log("params", filters, sorter);
+  };
+
+  const onChangePagination = (pageNumber) => {
+    set_page(pageNumber)
+    console.log('Page: ', pageNumber);
   };
 
   return (
     <>
       <div style={{ margin: "50px" }}>
-        <Table columns={columns} dataSource={data} onChange={onChange} />
+        <Table  pagination={false} columns={columns} dataSource={data} onChange={onChange} />
+        <Pagination defaultCurrent={page} total={lead_bank_list?.lead_bank?.data?.total_pages} onChange={onChangePagination} />
       </div>
     </>
   );
