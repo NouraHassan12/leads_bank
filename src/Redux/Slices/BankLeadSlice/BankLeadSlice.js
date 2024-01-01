@@ -40,9 +40,21 @@ export const create_lead_bank = createAsyncThunk(
 
 export const getAvailableLeadsAction = createAsyncThunk(
   "AvailableLeads/getAll",
-  async (data , thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
       return await LeadBankService.Get_available_leads(data);
+    } catch (error) {
+      const massage = error.message;
+      return thunkAPI.rejectWithValue(massage);
+    }
+  }
+);
+
+export const deleteLeadAction = createAsyncThunk(
+  "deleteLead/getAll",
+  async (data, thunkAPI) => {
+    try {
+      return await LeadBankService.deleteLead(data);
     } catch (error) {
       const massage = error.message;
       return thunkAPI.rejectWithValue(massage);
@@ -88,6 +100,21 @@ export const lead_bank_Slice = createSlice({
       state.isSuccess = true;
     },
     [getAvailableLeadsAction.rejected]: (state, action) => {
+      state.isLodaing = false;
+      state.isError = true;
+      state.massage = action.payload;
+    },
+
+    //delete  lead
+    [deleteLeadAction.pending]: (state) => {
+      state.isLodaing = true;
+    },
+    [deleteLeadAction.fulfilled]: (state, action) => {
+      state.isLodaing = false;
+      state.lead_bank = action.payload;
+      state.isSuccess = true;
+    },
+    [deleteLeadAction.rejected]: (state, action) => {
       state.isLodaing = false;
       state.isError = true;
       state.massage = action.payload;

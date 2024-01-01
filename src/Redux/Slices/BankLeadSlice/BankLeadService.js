@@ -1,12 +1,9 @@
 import axios from "axios";
-import {
-    create_bank_lead,
-    available_leads
-} from "../../API/Api";
-import {  notification  } from 'antd';
+import { create_bank_lead, available_leads, delete_lead } from "../../API/Api";
+import { notification } from "antd";
 const createBank_Action = async (data) => {
-  const  token  = JSON.parse(localStorage.getItem("token"));
- 
+  const token = JSON.parse(localStorage.getItem("token"));
+
   const headers = {
     Authorization: `Bearer ${token}`,
     Accept: "application/json",
@@ -21,34 +18,46 @@ const createBank_Action = async (data) => {
   if (response?.status == 200) {
     notification.success({
       message: response.data.message,
-     
     });
   }
   return response.data;
 };
 
 const Get_available_leads = async (data) => {
-  const  token  = JSON.parse(localStorage.getItem("token"));
-const headers = {
-  Authorization: `Bearer ${token}`,
-  Accept: "application/json",
-};
-const response = await axios({
-  method: "GET",
-  baseURL: `${available_leads}`,
-  headers: headers,
-  params: {
-    page: data.page,
-  },
-});
-return response.data;
+  const token = JSON.parse(localStorage.getItem("token"));
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/json",
+  };
+  const response = await axios({
+    method: "GET",
+    baseURL: `${available_leads}`,
+    headers: headers,
+    params: {
+      page: data.page,
+    },
+  });
+  return response.data;
 };
 
-
+const deleteLead = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/json",
+  };
+  const response = await axios({
+    method: "DELETE",
+    baseURL: `${delete_lead}/${data.id}`,
+    headers: headers,
+  
+  });
+  return response.data;
+};
 
 const LeadBankService = {
-    createBank_Action,
-    Get_available_leads
-
+  createBank_Action,
+  Get_available_leads,
+  deleteLead
 };
 export default LeadBankService;

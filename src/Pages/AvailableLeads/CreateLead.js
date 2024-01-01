@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { create_lead_bank } from "../../Redux/Slices/BankLeadSlice/BankLeadSlice";
 
 const CreateLead = () => {
+  const serviceTypes = useSelector((state) => state.serviceTypes);
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
   const [data, setData] = useState({});
@@ -19,7 +20,7 @@ const CreateLead = () => {
     useState();
   const [country_id, set_country_id] = useState();
   const [city_id, set_city_id] = useState();
-  const [addressSwitch, setAddressSwitch] = useState();
+  const [addressSwitch, setAddressSwitch] = useState(false);
   const [coordinates, setCoordinates] = React.useState({
     lat: 38.5610895,
     lng: -82.577286,
@@ -34,7 +35,49 @@ const CreateLead = () => {
   const [is_hoa, set_is_hoa] = useState(false);
   const [is_decision_maker_present, set_is_decision_maker_present] = useState(false);
   const [is_phone_receives_txt , set_is_phone_receives_txt] = useState(false);
-  const [is_mobile_receives_txt , set_is_mobile_receives_txt] = useState(false)
+  const [is_mobile_receives_txt , set_is_mobile_receives_txt] = useState(false);
+  const [final_service_type , set_final_service_type] = useState()
+  const service_type_result = [];
+  const final_service_type_result = [];
+  const ghgh= []
+  const [service , set_service] = useState();
+  let matches = [];
+  function getMatch(a, b) {
+    for (var i = 0; i < a.length; i++) {
+      for (var e = 0; e < b.length; e++) {
+        if (a[i] == b[e].title) matches.push(b[e]);
+      }
+    }
+    console.log(matches, "matchesmatchesmatches");
+   
+  
+    return matches;
+  }
+
+  // getMatch(value, serviceTypes?.serviceTypes?.data); // ["cat"]
+  // console.log(
+  //   getMatch(value, serviceTypes?.serviceTypes?.data)
+  // );
+
+  console.log(service_type_result , "service_type_result in create comp");
+
+
+  function removeDuplicates(arr) {
+    let unique = [];
+    arr.forEach(element => {
+        if (!unique.includes(element)) {
+            unique.push(element);
+        }
+    });
+    console.log(unique)
+    return unique;
+
+  
+}
+
+console.log(removeDuplicates(service_type_result) , "++++++++++++++++++++++++++++++++++++++")
+
+removeDuplicates(service_type_result)
 
 
   // building_coordinates
@@ -47,7 +90,7 @@ const CreateLead = () => {
     (data) => {
       form
         .validateFields([
-          //   // "customer_type",
+          //   "customer_type",
           //   "company_name",
           //   "Company_business_model",
           //   "first_name",
@@ -91,9 +134,9 @@ const CreateLead = () => {
         // "street",
         // "street_address",
         // "zip_code",
-        // "rate",
-        // "last_time_you_communicated",
-        // "source",
+        "rate",
+        "last_time_you_communicated",
+        "source",
       ])
       .then((values) => {
         console.log(values, "valuesvalues");
@@ -149,10 +192,21 @@ const CreateLead = () => {
       ])
       .then((values) => {
         console.log(values, "valuesvalues");
-        console.log(values.time_to_contact, "___time_to_contact");
+        console.log(matches , "in create  ")
+        getMatch(values.service_type
+          , serviceTypes?.serviceTypes?.data);
+         matches.forEach((i) =>  final_service_type_result.push(i.id));
+      //   console.log(values.time_to_contact, "___time_to_contact");
+      //   console.log(final_service_type , "___final_service_type");
+      // const nnn =   values?.service_type?.map((item, index) => ( serviceTypes?.serviceTypes?.data[index]));
+      // console.log(nnn , "::::::::::::::::::::::")
+      // console.log(values?.service_type , "{]]][][]]")
+      // console.log(values?.service_type?.map((item, index) => (serviceTypes?.serviceTypes?.data[index])).forEach((i) => ghgh.push(i.id)) , ".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
+      // values?.service_type?.map((item, index) => ( serviceTypes?.serviceTypes?.data[index])).forEach((i) => service_type_result.push(i.id));
         dispatch(
           create_lead_bank({
             ...values,
+            service_type : final_service_type_result,
             phone: phone,
             mobile: mobile,
             time_to_contact,
@@ -210,6 +264,9 @@ const CreateLead = () => {
       title: "Basic Iformation",
       content: (
         <FirstStep
+        matches={matches}
+        set_final_service_type={set_final_service_type}
+        service_type_result={service_type_result}
         set_is_mobile_receives_txt={set_is_mobile_receives_txt}
         set_is_phone_receives_txt={set_is_phone_receives_txt}
           set_is_decision_maker_present={set_is_decision_maker_present}

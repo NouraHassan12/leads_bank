@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select , Col , Row } from "antd";
 
 const ThirdStep = ({
   data,
@@ -22,6 +22,9 @@ const ThirdStep = ({
         layout="vertical"
         style={{ margin: "50px" }}
       >
+
+<Row>
+      <Col span={18} offset={2}>
         <Form.Item
           label="transaction type"
           name="transaction_type"
@@ -114,7 +117,8 @@ const ThirdStep = ({
           Submit
         </Button>
         </div>
-
+</Col>
+</Row>
       </Form>
     </>
   );

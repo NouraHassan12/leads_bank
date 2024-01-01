@@ -26,6 +26,12 @@ export const AddLeadContainer = styled.div`
     width:unset !important
 }
 
+.switches{
+.ant-form-item-label{
+    text-align:center
+}
+}
+
 `
 
 export const WarnDiv=styled.div`
