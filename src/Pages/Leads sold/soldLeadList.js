@@ -1,13 +1,17 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Table } from "antd";
+import { Table , Spin } from "antd";
 import {getsold_leadsAction} from "../../Redux/Slices/SoldLeadsSlice/SoldLeadsSlice";
 
 
 
 
 const SoldLeadsList = () => {
+  const Soldlead_list = useSelector((state) => state.sold_leads);
     const dispatch = useDispatch();
+
+    console.log(Soldlead_list?.sold_leads?.data?.data
+      , "Soldlead_list")
     
 useEffect(() => {
 
@@ -122,9 +126,14 @@ const data = {id : "2"}
 
   return (
     <>
-      <div style={{ margin: "50px" }}>
-        <Table columns={columns} dataSource={data} onChange={onChange} />
+     {Soldlead_list?.isLodaing ? (
+        <Spin spinning={Soldlead_list?.isLodaing} fullscreen />
+      ) :(
+        <div style={{ margin: "50px" }}>
+        <Table columns={columns} dataSource={Soldlead_list?.sold_leads?.data?.data} onChange={onChange} />
       </div>
+      )}
+     
     </>
   );
 };
