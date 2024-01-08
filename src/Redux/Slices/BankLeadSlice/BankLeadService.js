@@ -1,5 +1,5 @@
 import axios from "axios";
-import { create_bank_lead, available_leads, delete_lead } from "../../API/Api";
+import { create_bank_lead, available_leads, delete_lead , show_lead } from "../../API/Api";
 import { notification } from "antd";
 const createBank_Action = async (data) => {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -55,9 +55,25 @@ const deleteLead = async (data) => {
   return response.data;
 };
 
+const EditLead = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/json",
+  };
+  const response = await axios({
+    method: "GET",
+    baseURL: `${show_lead}/${data.id}`,
+    headers: headers,
+  
+  });
+  return response.data;
+};
+
 const LeadBankService = {
   createBank_Action,
   Get_available_leads,
-  deleteLead
+  deleteLead,
+  EditLead
 };
 export default LeadBankService;

@@ -12,7 +12,7 @@ import SoldLeadsList from "./Pages/Leads sold/soldLeadList";
 import CreateLead from "./Pages/AvailableLeads/CreateLead";
 import { GlobalStyle } from "./GlobalStyle/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
-
+import EditLead from "./Pages/AvailableLeads/EditLead"
 function App() {
   const [auth, setAuth] = useState();
   const Authorized_user = useSelector((state) => state.auth_user);
@@ -44,6 +44,7 @@ function App() {
               <Route path="AllLeads" element={<LeadsList />} />
               <Route path="SoldLeadsList" element={<SoldLeadsList />} />
               <Route path="CreateLead" element={<CreateLead />} />
+              <Route path="EditLead/:id" element={<EditLead />} />
             </Route>
           </Route>
           {/* </Route> */}

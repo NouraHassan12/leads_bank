@@ -14,11 +14,11 @@ export const AddLeadContainer = styled.div`
 
 .tetstttttttt > :first-child{
     position:absolute !important;
-    width:40% !important;
-    height: 60% !important;
+    width:30% !important;
+    height: 55% !important;
     z-index: 1;
-    top: 30%;
-    left: 56%;
+    top: 35%;
+    left: 65%;
 
 }
 

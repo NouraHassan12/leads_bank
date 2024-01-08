@@ -8,12 +8,12 @@ import {
   DatePicker,
   Space,
   Switch,
-  Alert
+  Alert,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountriesAction } from "../../Redux/Slices/CountriesAndStatesSlice/CountriesAndStatesSlice";
-import { getcitiesAction  } from "../../Redux/Slices/CountriesAndStatesSlice/CitiesSlice";
-import {getStatesAction} from "../../Redux/Slices/CountriesAndStatesSlice/stateSlice"
+import { getcitiesAction } from "../../Redux/Slices/CountriesAndStatesSlice/CitiesSlice";
+import { getStatesAction } from "../../Redux/Slices/CountriesAndStatesSlice/stateSlice";
 import { AddLeadContainer, WarnDiv } from "./CreateLeadStyle";
 import {
   InputLabel,
@@ -26,7 +26,6 @@ import {
   Checkbox,
   Modal,
   FormControl,
-  
 } from "@mui/material";
 // Google Maps
 import PlacesAutocomplete, {
@@ -68,10 +67,9 @@ const SecondStep = ({
   street,
   setStreetLoc,
   country,
-   state,
-    setState,
-    setCountry
-
+  state,
+  setState,
+  setCountry,
 }) => {
   const dispatch = useDispatch();
 
@@ -92,9 +90,8 @@ const SecondStep = ({
   // const [state, setState] = React.useState("");
   const [showData, setShowData] = React.useState(false);
   const [route, setRoute] = React.useState("");
-  const  allstates = useSelector((state) => state.states);
-   console.log(allstates?.states?.data?.states
-    , "__allstates")
+  const allstates = useSelector((state) => state.states);
+  console.log(allstates?.states?.data?.states, "__allstates");
 
   console.log(all_countries?.isLodaing, "all_countries");
   console.log(country_id, "__country_id in sec step");
@@ -113,10 +110,10 @@ const SecondStep = ({
   Geocode.setLocationType("ROOFTOP");
   Geocode.setApiKey("AIzaSyCrr_bBNHxQ0lZKadmJYpqS2vOebczD1m4");
   React.useEffect(() => {
-    console.log(coordinates , "{{{{{{{coordinates}}}}}}}}}}}}}}}")
+    console.log(coordinates, "{{{{{{{coordinates}}}}}}}}}}}}}}}");
     Geocode.fromLatLng(coordinates.lat, coordinates.lng).then(
       (response) => {
-        console.log(response.results[0] , "response")
+        console.log(response.results[0], "response");
         const address = response.results[0].formatted_address;
         let street, city, state, country, postalCode, route, county;
         for (
@@ -172,7 +169,7 @@ const SecondStep = ({
         // data.city_name = city;
         // data.location = address;
         // data.county = county;
-        console.log(state , "+++++state")
+        console.log(state, "+++++state");
         console.log("county", county);
         console.log("city", city);
       },
@@ -203,8 +200,6 @@ const SecondStep = ({
   const onOk = (value) => {
     console.log("onOk: ", value);
   };
-
-
 
   useEffect(() => {
     const stateData = { id: 231 };
@@ -244,10 +239,9 @@ const SecondStep = ({
           // ]}
         >
           <typography style={{ margin: "0px 8px" }}>No</typography>
-          <Switch  onChange={onChangeAddressSwitch} />
+          <Switch onChange={onChangeAddressSwitch} />
           <typography style={{ margin: "0px 8px" }}>Yes</typography>
         </Form.Item>
-
 
         <div style={{ display: "flex" }}>
           <div>
@@ -274,7 +268,7 @@ const SecondStep = ({
                       loading={allstates?.isLodaing}
                       onSelect={(value) => {
                         // set_country_id(value);
-                        set_city_id(value)
+                        set_city_id(value);
                       }}
                     >
                       {allstates?.states?.data?.states &&
@@ -287,7 +281,6 @@ const SecondStep = ({
                     {/* ))} */}
                   </Form.Item>
 
-
                   <Form.Item
                     style={{ width: "48%", marginLeft: "20px" }}
                     label="city"
@@ -298,7 +291,7 @@ const SecondStep = ({
                       },
                     ]}
                   >
-                      <Input  />
+                    <Input />
                     {/* <Select
                       showSearch={false}
                       showArrow
@@ -317,11 +310,10 @@ const SecondStep = ({
                           </Select.Option>
                         ))}
                     </Select> */}
-                 
                   </Form.Item>
                 </div>
 
-                <div style={{ display: "flex" ,}}>
+                <div style={{ display: "flex" }}>
                   <Form.Item
                     style={{ width: "48%", marginRight: "20px" }}
                     label="street address"
@@ -351,122 +343,119 @@ const SecondStep = ({
               </Grid>
             ) : (
               <>
-              <PlacesAutocomplete
-             
-                value={address}
-                onChange={setAddress}
-                onSelect={handleSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <div>
-                    <TextField
-                      sx={{ mb: 3 }}
-                      fullWidth
-                      {...getInputProps({
-                        placeholder: "Type Your address",
-                      })}
-                    ></TextField>
-
-                    
-                    <div style={{boxShadow:"5px 5px 5px #a6a6a6"}}>
-
-                  
-                      {loading ? <div>...loading</div> : null}
-
-                      {suggestions.map((suggestion) => {
-                        const style = {
-                          backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
-                          textAlign: "center",
-                          fontSize: "13px",
-                        };
-
-                        return (
-                          <MenuItem
-                            style={{ border: "1px solid black" }}
-                            {...getSuggestionItemProps(suggestion, {
-                              style,
-                            })}
-                          >
-                            {suggestion.description}
-                          </MenuItem>
-                        );
-                      })}
-                
-                    </div>
-                  </div>
-                )}
-              </PlacesAutocomplete>
-
-              {showData === true ? (
-                <>
-                  <Grid container spacing={2}>
-                    <Grid item xs={6} sm={6} sx={{ mb: 2 }}>
+                <PlacesAutocomplete
+                  value={address}
+                  onChange={setAddress}
+                  onSelect={handleSelect}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <div >
+                      <div style={{ display: "flex" }}>
                       <TextField
-                        fullWidth
-                        required
-                        name="country"
-                        label="country"
-                        disabled
-                        value={country}
-                      />
-
- 
-
-                    </Grid>
-                    <Grid item xs={6} sm={6} sx={{ mb: 2 }}>
-                      <TextField
-                        fullWidth
-                        required
-                        name="state"
-                        label="state"
-                        disabled
-                        value={state}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={2}>
-                    <Grid item xs={18} sm={18} sx={{ mb: 2 }}>
-                      <TextField
-                        fullWidth
-                        required
-                        label="Full Address"
-                        value={full_address}
-                        disabled
+                        style={{ width: "70%" }}
+                        sx={{ mb: 3 }}
+                        // fullWidth
+                        {...getInputProps({
+                          placeholder: "Type Your address",
+                        })}
                       ></TextField>
+                      </div>
+                     
+
+                      <div style={{ boxShadow: "5px 5px 5px #a6a6a6" }}>
+                        {loading ? <div>...loading</div> : null}
+
+                        {suggestions.map((suggestion) => {
+                          const style = {
+                            backgroundColor: suggestion.active
+                              ? "#41b6e6"
+                              : "#fff",
+                            textAlign: "center",
+                            fontSize: "13px",
+                          };
+
+                          return (
+                            <MenuItem
+                              style={{ border: "1px solid black" }}
+                              {...getSuggestionItemProps(suggestion, {
+                                style,
+                              })}
+                            >
+                              {suggestion.description}
+                            </MenuItem>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+
+                {showData === true ? (
+                  <>
+                    <Grid container spacing={2}>
+                      <Grid item xs={6} sm={6} sx={{ mb: 2 }}>
+                        <TextField
+                          fullWidth
+                          required
+                          name="country"
+                          label="country"
+                          disabled
+                          value={country}
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6} sx={{ mb: 2 }}>
+                        <TextField
+                          fullWidth
+                          required
+                          name="state"
+                          label="state"
+                          disabled
+                          value={state}
+                        />
+                      </Grid>
                     </Grid>
+                    <Grid container spacing={2}>
+                      <Grid item xs={18} sm={18} sx={{ mb: 2 }}>
+                        <TextField
+                          fullWidth
+                          required
+                          label="Full Address"
+                          value={full_address}
+                          disabled
+                        ></TextField>
+                      </Grid>
 
-
-
-                    <Grid item xs={18} sm={18} sx={{ mb: 2 }}>
-                      <TextField
-                        fullWidth
-                        name="zip_code"
-                        label="ZIP"
-                       value={zip_code}
-                        disabled
-
-                      />
+                      <Grid item xs={18} sm={18} sx={{ mb: 2 }}>
+                        <TextField
+                          fullWidth
+                          name="zip_code"
+                          label="ZIP"
+                          value={zip_code}
+                          disabled
+                        />
+                      </Grid>
                     </Grid>
-
-                  
-                  </Grid>
-                </>
-              ) : (
-                <Alert  style={{ width:"70%" , marginTop:"15px" }} message="Please Select One of the Suggested addresses After You type
-                The Address" type="warning" showIcon  />
+                  </>
+                ) : (
+                  <Alert
+                    style={{ width: "70%", marginTop: "15px" }}
+                    message="Please Select One of the Suggested addresses After You type
+                The Address"
+                    type="warning"
+                    showIcon
+                  />
 
                   // <h6>
                   //   Please Select One of the Suggested addresses After You type
                   //   The Address
                   // </h6>
-              
-              )}
-            </>
+                )}
+              </>
             )}
 
             {/* {!addressSwitch && (
@@ -589,10 +578,7 @@ const SecondStep = ({
           </div>
 
           <div>
-            <div
-              className="tetstttttttt"
-         
-            >
+            <div className="tetstttttttt">
               <GoogleMap
                 mapContainerStyle={mapStyles}
                 style={{ position: "absolute !important" }}
@@ -616,7 +602,7 @@ const SecondStep = ({
           </div>
         </div>
 
-        <div style={{ display: "flex" , marginTop:"150px" }}>
+        <div style={{ display: "flex", marginTop: "150px" }}>
           <Form.Item
             // style={{ width: "48%", marginLeft: "20px" }}
             label="add your rating and review"
@@ -714,8 +700,7 @@ const SecondStep = ({
 
         {/* {current < steps - 1 && ( */}
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-
-        <Button
+          <Button
             style={{ width: "35%", backgroundColor: "#2d3282" }}
             type="primary"
             htmlType="submit"
@@ -732,8 +717,6 @@ const SecondStep = ({
           >
             Next
           </Button>
-
-          
         </div>
 
         {/* )} */}

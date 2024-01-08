@@ -9,6 +9,7 @@ import { deleteLeadAction } from "../../Redux/Slices/BankLeadSlice/BankLeadSlice
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import DeleteLead from "./DeleteLead";
+import { useNavigate } from "react-router-dom";
 const LeadsList = () => {
   const dispatch = useDispatch();
   // const router =
@@ -16,6 +17,7 @@ const LeadsList = () => {
   const location = useLocation();
   const [page, set_page] = useState(1);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   console.log(searchParams, "searchParams");
   console.log(lead_bank_list?.isLodaing, "lead_bank_list");
@@ -47,6 +49,11 @@ const LeadsList = () => {
 
     dispatch(getAvailableLeadsAction({ page: page }));
   };
+
+  const handleEdit =(id)=>{
+    // console.log(id , "eikk");
+    navigate("/")
+  }
   const columns = [
     {
       title: "first Name",
@@ -110,6 +117,14 @@ const LeadsList = () => {
             >
               <a>Delete</a>
             </Popconfirm>
+            {/* <span onClick={()=>{console.log("edittttttttttttttt") ; }} style={{margin:"0px 10px" , cursor:"pointer"}}>edit</span> */}
+            {/* <Popconfirm
+            style={{margin:"0px 5px"}}
+              title="edit this lead?"
+              onConfirm={() => navigate(`/home/Leads/EditLead/${record.id}`)}
+            >
+              <a>edit</a>
+            </Popconfirm> */}
           </>
         ) : // </Space>
         null,

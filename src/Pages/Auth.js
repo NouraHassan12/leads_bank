@@ -78,16 +78,18 @@ export default function Login() {
   return (
     <AuthPage>
       <Box
+
         // sx={{ bgcolor: "background.paper", width: 500 }}
         className="container"
       >
-        <AppBar position="static">
+        <AppBar  className="header" position="static" style={{backgroundColor:"red !important"}}>
           <img
             src={logo}
             alt="lgog"
             style={{ alignSelf: "baseline", margin: "10px" }}
           />
           <Tabs
+           
             value={value}
             onChange={handleChange}
             indicatorColor="secondary"
