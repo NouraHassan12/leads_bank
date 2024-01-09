@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Select, Col, Row } from "antd";
 
 const ThirdStep = ({
@@ -11,7 +11,9 @@ const ThirdStep = ({
   finalStep,
   previous,
 }) => {
-  console.log(steps, "stepssteps");
+  const [transactionType, set_transactionType] = useState();
+  const [commissionbased, set_commissionBased] = useState();
+
   return (
     <>
       <Form
@@ -30,7 +32,14 @@ const ThirdStep = ({
               rules={[
                 {
                   required: true,
+                  message: "Please enter price",
                 },
+                () => ({
+                  validator(_, value) {
+                    set_transactionType(value);
+                    console.log(value, "commission_based____value ");
+                  },
+                }),
               ]}
             >
               <Select>
@@ -41,56 +50,100 @@ const ThirdStep = ({
               </Select>
             </Form.Item>
 
+            {transactionType !== "immediate" && (
+              <div style={{ display: "flex" }}>
+                <Form.Item
+                  style={{ width: "48%", marginRight: "20px" }}
+                  label="commission based"
+                  name="commission_based"
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //   },
+                  // ]}
+
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter price",
+                    },
+                    () => ({
+                      validator(_, value) {
+                        set_commissionBased(value);
+                        console.log(value, "commission_based____value ");
+                      },
+                    }),
+                  ]}
+                >
+                  <Select>
+                    <Select.Option value="flat_rate">flat rate</Select.Option>
+                    <Select.Option value="split_earning">
+                      split earning
+                    </Select.Option>
+                    <Select.Option value="percentage_of_sale">
+                      percentage of sale
+                    </Select.Option>
+                  </Select>
+                </Form.Item>
+
+                <Form.Item
+                  style={{ width: "48%", marginLeft: "20px" }}
+                  label="commission type"
+                  name="commission_type"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <Select>
+                    <Select.Option value="shared">shared</Select.Option>
+                    <Select.Option value="exclusive">exclusive</Select.Option>
+                  </Select>
+                </Form.Item>
+              </div>
+            )}
+
             <Form.Item
               label="price"
               name="price_percentage"
               rules={[
                 {
                   required: true,
+                  message: "Please enter price",
                 },
+                () => ({
+                  validator(_, value) {
+                    if (!value) {
+                      return Promise.reject();
+                    }
+                    if (isNaN(value)) {
+                      return Promise.reject("price has to be a number.");
+                    }
+                    if (
+                      value < 1 &&
+                      transactionType == "commission_based" &&
+                      (commissionbased == "split_earning" ||
+                        commissionbased == "percentage_of_sale")
+                    ) {
+                      return Promise.reject("price can't be less than 1");
+                    }
+                    if (
+                      value > 100 &&
+                      transactionType == "commission_based" &&
+                      (commissionbased == "split_earning" ||
+                        commissionbased == "percentage_of_sale")
+                    ) {
+                      return Promise.reject("price can't be more than 100%");
+                    }
+                    return Promise.resolve();
+                  },
+                }),
               ]}
+              validateTrigger="onBlur"
             >
               <Input type="number" />
             </Form.Item>
-
-            <div style={{ display: "flex" }}>
-              <Form.Item
-                style={{ width: "48%", marginRight: "20px" }}
-                label="commission based"
-                name="commission_based"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <Select>
-                  <Select.Option value="flat_rate">flat rate</Select.Option>
-                  <Select.Option value="split_earning">
-                    split earning
-                  </Select.Option>
-                  <Select.Option value="percentage_of_sale">
-                    percentage of sale
-                  </Select.Option>
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                style={{ width: "48%", marginLeft: "20px" }}
-                label="commission type"
-                name="commission_type"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <Select>
-                  <Select.Option value="shared">shared</Select.Option>
-                  <Select.Option value="exclusive">exclusive</Select.Option>
-                </Select>
-              </Form.Item>
-            </div>
             <Form.Item
               label="description"
               name="description"

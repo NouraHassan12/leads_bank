@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
+
+.header{
+  background-color: white !important;
+
+
+}
   .css-hip9hq-MuiPaper-root-MuiAppBar-root {
     background-color: white !important;
     box-shadow: unset !important;

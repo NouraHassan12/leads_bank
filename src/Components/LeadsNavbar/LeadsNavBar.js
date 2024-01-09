@@ -37,7 +37,7 @@ function LeadsNavbar() {
 
   return (
     <LeadsNav>
-      <AppBar position="static">
+      <AppBar className="header" position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             
