@@ -42,7 +42,8 @@ function LeadsNavbar() {
           <Toolbar disableGutters>
             
             <Box 
-            sx={{ flexGrow: 1, display: { xs: "flex" } }}
+            sx={{ flexGrow: 1, display: { xs: "flex" }  }}
+            style={{marginTop:"20px"}}
             >
             
 

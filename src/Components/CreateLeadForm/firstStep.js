@@ -31,12 +31,18 @@ const FirstStep = ({
   set_time_to_contact,
   set_phone,
   set_is_active,
+  edit_is_active, 
+  edit_is_hoa,
+  edit_is_decision_maker_present,
+  edit_is_phone_receives_txt,
+  edit_is_mobile_receives_txt,
   set_mobile,
   set_is_hoa,
   set_is_decision_maker_present,
   set_is_mobile_receives_txt,
   set_is_phone_receives_txt,
   matches,
+  phoneValue
 }) => {
   const { Option } = Select;
   const dispatch = useDispatch();
@@ -136,6 +142,11 @@ const FirstStep = ({
   //   },
   // ];
 
+
+
+   
+
+
   return (
     <AddLeadContainer>
       <Form
@@ -151,6 +162,7 @@ const FirstStep = ({
             <Form.Item
               label="Customer type"
               name="customer_type"
+             // initialValue={"Residential"}
               rules={[
                 {
                   required: true,
@@ -237,7 +249,7 @@ const FirstStep = ({
                   customInput={TextField}
                   mask="_"
                   label="Phone"
-                  // value={data.phone}
+                  // value={phoneValue}
                   // onChange={(e) => setData({ ...data, phone: e.target.value })}
                   onValueChange={(values) => {
                     console.log(values?.floatValue, "_______phone num value");
@@ -258,6 +270,7 @@ const FirstStep = ({
               >
                 <typography style={{ margin: "0px 8px" }}>No</typography>
                 <Switch
+                  defaultChecked={edit_is_phone_receives_txt == 1 ? true : false}
                   onChange={(checked) => {
                     set_is_phone_receives_txt(checked);
                   }}
@@ -306,6 +319,7 @@ const FirstStep = ({
               >
                 <typography style={{ margin: "0px 8px" }}>No</typography>
                 <Switch
+                 defaultChecked={edit_is_mobile_receives_txt == 1 ? true : false}
                   onChange={(checked) => {
                     set_is_mobile_receives_txt(checked);
                   }}
@@ -537,6 +551,8 @@ const FirstStep = ({
               >
                 <typography style={{ margin: "0px 8px" }}>No</typography>
                 <Switch
+                defaultChecked={edit_is_decision_maker_present == 1 ? true : false}
+                
                   onChange={(checked) => {
                     set_is_decision_maker_present(checked);
                   }}
@@ -555,6 +571,8 @@ const FirstStep = ({
               >
                 <typography style={{ margin: "0px 8px" }}>No</typography>
                 <Switch
+                
+                defaultChecked={edit_is_hoa == 1 ? true : false}
                   onChange={(checked) => {
                     set_is_hoa(checked);
                   }}
@@ -569,6 +587,7 @@ const FirstStep = ({
               >
                 <typography style={{ margin: "0px 8px" }}>No</typography>
                 <Switch
+               defaultChecked={edit_is_active == 1 ? true : false}
                   onChange={(checked) => {
                     set_is_active(checked);
                   }}
