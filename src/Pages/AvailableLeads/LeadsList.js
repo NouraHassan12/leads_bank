@@ -119,11 +119,11 @@ const LeadsList = () => {
             </Popconfirm>
             {/* <span onClick={()=>{console.log("edittttttttttttttt") ; }} style={{margin:"0px 10px" , cursor:"pointer"}}>edit</span> */}
             <Popconfirm
-            style={{margin:"0px 5px"}}
+            
               title="edit this lead?"
               onConfirm={() => navigate(`/home/Leads/EditLead/${record.id}`)}
             >
-              <a>edit</a>
+              <a style={{margin:"0px 15px"}}>edit</a>
             </Popconfirm>
           </>
         ) : // </Space>

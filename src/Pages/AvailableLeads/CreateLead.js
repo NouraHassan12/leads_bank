@@ -75,7 +75,7 @@ const CreateLead = () => {
   
 }
 
-console.log(removeDuplicates(service_type_result) , "++++++++++++++++++++++++++++++++++++++")
+
 
 removeDuplicates(service_type_result)
 
@@ -90,25 +90,25 @@ removeDuplicates(service_type_result)
     (data) => {
       form
         .validateFields([
-          //   "customer_type",
-          //   "company_name",
-          //   "Company_business_model",
-          //   "first_name",
-          //   "last_name",
-          //   "phone",
-          //   "mobile",
-          //   "email",
-          //   "way_to_contact",
-          //   "preferred_language",
-          //   "house_ownership",
-          //   "time_to_contact",
-          //   "citizenship_status",
-          //   "building_type",
-          //  // "is_decision_maker_present",
-          //  // "is_hoa",
-          // //  "is_active",
-          //   "service_type",
-          //  // "is_alter_address",
+            "customer_type",
+            "company_name",
+            "Company_business_model",
+            "first_name",
+            "last_name",
+            "phone",
+            "mobile",
+            "email",
+            "way_to_contact",
+            "preferred_language",
+            "house_ownership",
+            "time_to_contact",
+            "citizenship_status",
+            "building_type",
+           // "is_decision_maker_present",
+           // "is_hoa",
+          //  "is_active",
+            "service_type",
+           // "is_alter_address",
         ])
         .then((values) => {
           console.log(values, "valuesvalues");
@@ -377,7 +377,7 @@ removeDuplicates(service_type_result)
         ></div>
       </div>
 
-      {current > 0 && (
+      {/* {current > 0 && (
         <div
           style={{
             display: "flex",
@@ -385,7 +385,7 @@ removeDuplicates(service_type_result)
             marginLeft: "320px",
           }}
         >
-          {/* <Button
+          <Button
             // style={{width:"35%" , backgroundColor:"#2d3282"}}
             htmlType="submit"
             style={{
@@ -397,9 +397,9 @@ removeDuplicates(service_type_result)
             onClick={() => prev()}
           >
             Previous
-          </Button> */}
+          </Button>
         </div>
-      )}
+      )} */}
       {/* {current < steps.length - 1 && (
         <Button type="primary" htmlType="submit" onClick={() => next()}>
           Next

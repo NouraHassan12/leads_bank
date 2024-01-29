@@ -52,18 +52,7 @@ const FirstStep = ({
   const [filteredServiceType, setFilteredType] = useState([]);
   const service_type_result = [];
   const hhhhh = [];
-  console.log(
-    filteredServiceType,
-    "____filteredServiceType877777777777777777777777777777777777777"
-  );
-  console.log(service_type_result, "service_type_resultservice_type_result");
-  console.log(steps, "stepssteps");
-
-  console.log(
-    serviceTypes?.serviceTypes?.data,
-    "serviceTypesserviceTypesserviceTypes"
-  );
-
+ 
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
   };
@@ -88,17 +77,14 @@ const FirstStep = ({
   };
 
   var now = new Date();
-  // var dateString = moment(now).format('YYYY-MM-DD');
 
-  // var dateStringWithTime = moment(now).format('YYYY-MM-DD HH:mm:ss');
-
-  // console.log(dateStringWithTime , "dateStringWithTime")
 
   useEffect(() => {
-    // console.log(ref , "_____________________ref")
-    // console.log(ref.current?.innerText || "ref not set!");
+
     dispatch(getServiceTypesAction());
   }, []);
+
+
 
   const ontimeChange = (value, dateString) => {
     console.log("Selected Time: ", value);
@@ -107,40 +93,9 @@ const FirstStep = ({
   };
   const onOk = (value) => {
     console.log("onOk: ", value);
-    console.log(value.toLocaleString(), ">>>>>>>");
-
-    console.log(
-      moment(value).format("YYYY-MM-DD; HH:mm A").replace(",", ""),
-      "_____ nsjnksnksn"
-    );
   };
 
-  // const options = [
-  //   {
-  //     label: "China",
-  //     value: "China",
-  //     emoji: "🇨🇳",
-  //     desc: "China (中国)",
-  //   },
-  //   {
-  //     label: "USA",
-  //     value:"USA",
-  //     emoji: "🇺🇸",
-  //     desc: "USA (美国)",
-  //   },
-  //   {
-  //     label: "Japan",
-  //     value: "Japan",
-  //     emoji: "🇯🇵",
-  //     desc: "Japan (日本)",
-  //   },
-  //   {
-  //     label: "Korea",
-  //     value: "Korea",
-  //     emoji: "🇰🇷",
-  //     desc: "Korea (韩国)",
-  //   },
-  // ];
+
 
 
 
@@ -252,7 +207,7 @@ const FirstStep = ({
                   // value={phoneValue}
                   // onChange={(e) => setData({ ...data, phone: e.target.value })}
                   onValueChange={(values) => {
-                    console.log(values?.floatValue, "_______phone num value");
+                    console.log(values?.floatValue, "_______phone num value|||||||||||");
                     set_phone(values?.floatValue);
                   }}
                 />
@@ -428,13 +383,13 @@ const FirstStep = ({
                   },
                 ]}
               >
-                <DatePicker
-                  style={{ width: "100%" }}
-                  showTime
-                  format="YYYY-MM-DD HH:mm:ss"
-                  onChange={ontimeChange}
-                  onOk={onOk}
-                />
+                   <DatePicker
+              style={{ width: "100%" }}
+              showTime
+              format="YYYY-MM-DD HH:mm:ss"
+              onChange={ontimeChange}
+              onOk={onOk}
+            />
               </Form.Item>
 
               <Form.Item
@@ -492,39 +447,10 @@ const FirstStep = ({
                 }}
                 placeholder="select Service type"
                 // defaultValue={["china"]}
-                value={"kkkk"}
+                // value={"kkkk"}
                 optionLabelProp="title"
-                // options={options}
-                // optionRender={(option) => (
-
-                //   <Space ref={ref}  value={option} >
-                //     <span role="img"   aria-label={option.title}>
-                //       {option.title}
-                //     </span>
-                //     {option.id}
-                //   </Space>
-
-                // )}
-                //  onChange={handleChange}
                 onChange={(value) => {
-                  // function getMatch(a, b) {
-                  //   for (var i = 0; i < a.length; i++) {
-                  //     for (var e = 0; e < b.length; e++) {
-                  //       if (a[i] == b[e].title) matches.push(b[e]);
-                  //     }
-                  //   }
-                  //   console.log(matches, "matchesmatchesmatches");
-                   
-                  
-                  //   return matches;
-                  // }
-
-                  // getMatch(value, serviceTypes?.serviceTypes?.data); // ["cat"]
-                  // console.log(
-                  //   getMatch(value, serviceTypes?.serviceTypes?.data)
-                  // );
-
-                  // ))
+                
                 }}
                 options={serviceTypes?.serviceTypes?.data?.map((item) => ({
                   value: item.title,
@@ -533,12 +459,7 @@ const FirstStep = ({
               />
             </Form.Item>
 
-            {/* {serviceTypes?.serviceTypes?.data?.map((serve) => (
-      <Checkbox  key={serve.id}
-      value={serve.id}
-      checked={data.service_type_id.indexOf(serve.id) !== -1}
-      onChange={handleToggleCheck(serve.id)}>{item.title}</Checkbox>
-    ))} */}
+
 
             <div
               style={{ display: "flex", margin: "30px 0px" }}

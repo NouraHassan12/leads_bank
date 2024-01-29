@@ -2,11 +2,12 @@ import React, { useState, useCallback  , useEffect} from "react";
 import { Button, message, Steps, theme, Form } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { UpdateLeadAction } from "../../Redux/Slices/BankLeadSlice/BankLeadSlice";
+import { get_Lead_by_id_Action } from "../../Redux/Slices/BankLeadSlice/BankLeadSlice";
 import FirstStep from "../../Components/CreateLeadForm/firstStep";
 import SecondStep from "../../Components/CreateLeadForm/secondStep";
 import ThirdStep from "../../Components/CreateLeadForm/thirdStep";
 import { ContactSupportOutlined } from "@mui/icons-material";
+import {edit_lead_bank} from "../../Redux/Slices/BankLeadSlice/BankLeadSlice"
 import moment from "moment";
 const EditLead = ({}) => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const EditLead = ({}) => {
     lat: 38.5610895,
     lng: -82.577286,
   });
+  const [time_to_contact, set_time_to_contact] = useState();
   const [address, setAddress] = React.useState("");
   const [full_address, setFullAddress] = React.useState("");
   const [zip_code, setPostalCode] = React.useState("");
@@ -37,17 +39,26 @@ const EditLead = ({}) => {
   const [state, setState] = React.useState("");
   const [last_time_you_communicated, set_last_time_you_communicated] =
     useState();
-  console.log(update_lead_bank?.lead_bank?.data, "update_lead_bank");
-  console.log(
-    update_lead_bank?.lead_bank?.data?.customer_type,
-    "//////////////////"
-  );
+    const serviceTypes = useSelector((state) => state.serviceTypes);
+    const service_type_result = [];
+    const final_service_type_result = [];
+    let matches = [];
+    function getMatch(a, b) {
+      for (var i = 0; i < a.length; i++) {
+        for (var e = 0; e < b.length; e++) {
+          if (a[i] == b[e].title) matches.push(b[e]);
+        }
+      }
+    
+     
+    
+      return matches;
+    }
 
-  console.log(params, "params in edit lead ");
 
   useEffect(() => {
     const reqData = { id: params.id };
-    dispatch(UpdateLeadAction(reqData));
+    dispatch(get_Lead_by_id_Action(reqData));
   }, [params]);
 
 
@@ -89,25 +100,25 @@ const EditLead = ({}) => {
     (data) => {
       form
         .validateFields([
-          //   "customer_type",
-          //   "company_name",
-          //   "Company_business_model",
-          //   "first_name",
-          //   "last_name",
-          //   "phone",
-          //   "mobile",
-          //   "email",
-          //   "way_to_contact",
-          //   "preferred_language",
-          //   "house_ownership",
-          //   "time_to_contact",
-          //   "citizenship_status",
-          //   "building_type",
-          //  // "is_decision_maker_present",
-          //  // "is_hoa",
-          // //  "is_active",
-          //   "service_type",
-          //  // "is_alter_address",
+            "customer_type",
+            "company_name",
+            "Company_business_model",
+            "first_name",
+            "last_name",
+            "phone",
+            "mobile",
+            "email",
+            "way_to_contact",
+            "preferred_language",
+            "house_ownership",
+            "time_to_contact",
+            "citizenship_status",
+            "building_type",
+           // "is_decision_maker_present",
+           // "is_hoa",
+          //  "is_active",
+            "service_type",
+           // "is_alter_address",
         ])
         .then((values) => {
           console.log(values, "valuesvalues");
@@ -122,6 +133,84 @@ const EditLead = ({}) => {
     }
     // [step]
   );
+
+  
+  const finalStep = () => {
+    console.log("final step");
+    form.validateFields([
+        "customer_type",
+        "company_name",
+        "Company_business_model",
+        "first_name",
+        "last_name",
+        "phone",
+        // "is_phone_receives_txt",
+        "mobile",
+        // "is_mobile_receives_txt",
+        "email",
+        "way_to_contact",
+        "preferred_language",
+        "house_ownership",
+        "time_to_contact",
+        "citizenship_status",
+        "building_type",
+        // "is_decision_maker_present",
+        //  "is_hoa",
+        // "is_active",
+        "service_type",
+        //  "is_alter_address",
+        "country_id",
+        "state_id",
+        "location",
+        "street",
+        "street_address",
+        "zip_code",
+        "alter_city",
+        "alter_zip_code",
+        "rate",
+        "last_time_you_communicated",
+        "date",
+        "time_to_contact",
+        "source",
+        "transaction_type",
+        "price_percentage",
+        "description",
+      ])
+      .then((values) => {
+        console.log(values, "valuesvalues");
+        getMatch(values.service_type
+          , serviceTypes?.serviceTypes?.data);
+         matches.forEach((i) =>  final_service_type_result.push(i.id));
+
+        dispatch(
+          edit_lead_bank({
+            id:params.id,
+            ...values,
+             service_type : final_service_type_result,
+            phone:  update_lead_bank?.lead_bank?.data?.phone || phone ,
+            mobile: update_lead_bank?.lead_bank?.data?.mobile || mobile,
+            time_to_contact,
+            last_time_you_communicated,
+            country_id: 231,
+            state_id: city_id || street,
+            building_coordinates: coordinates,
+            zip_code: zip_code,
+            street: street,
+            location: full_address,
+            is_active: is_active,
+            is_hoa: is_hoa,
+            is_decision_maker_present: is_decision_maker_present,
+            is_phone_receives_txt:is_phone_receives_txt,
+            is_mobile_receives_txt : is_mobile_receives_txt
+          })
+        );
+        // setCurrent(current + 1);
+        // setData(data);
+      })
+      .catch((errorInfo) => {
+        console.log("errorInfo from submit form ...", errorInfo);
+      });
+  };
 
 
   useEffect(() => {
@@ -147,6 +236,21 @@ const EditLead = ({}) => {
       is_decision_maker_present:
         update_lead_bank?.lead_bank?.data?.is_decision_maker_present,
       is_active: update_lead_bank?.lead_bank?.data?.is_active,
+      rate : update_lead_bank?.lead_bank?.data?.rate,
+      source : update_lead_bank?.lead_bank?.data?.source,
+      transaction_type :  update_lead_bank?.lead_bank?.data?.transaction_type ,
+      price_percentage : update_lead_bank?.lead_bank?.data?.price_percentage ,
+      commission_based: update_lead_bank?.lead_bank?.data?.commission_based ,
+      commission_type : update_lead_bank?.lead_bank?.data?.commission_type,
+      description : update_lead_bank?.lead_bank?.data?.description
+      
+
+ 
+
+
+ 
+
+ 
      
     });
 
@@ -159,9 +263,8 @@ const EditLead = ({}) => {
       title: "Basic Iformation",
       content: (
         <FirstStep
-          // matches={matches}
-          // set_final_service_type={set_final_service_type}
-          // service_type_result={service_type_result}
+        matches={matches}
+        service_type_result={service_type_result}
           set_is_mobile_receives_txt={set_is_mobile_receives_txt}
           set_is_phone_receives_txt={set_is_phone_receives_txt}
           set_is_decision_maker_present={set_is_decision_maker_present}
@@ -174,7 +277,7 @@ const EditLead = ({}) => {
           edit_is_mobile_receives_txt = {update_lead_bank?.lead_bank?.data?.is_mobile_receives_txt}
           set_phone={set_phone}
           set_mobile={set_mobile}
-          //   set_time_to_contact={set_time_to_contact}
+            set_time_to_contact={set_time_to_contact}
             onSuccess={next}
              current={current}
             steps={allSteps}
@@ -225,13 +328,13 @@ const EditLead = ({}) => {
       title: "Description Information",
       content: (
         <ThirdStep
-        //   finalStep={finalStep}
-        //   onSuccess={next}
-        //   current={current}
-        //   steps={allSteps}
-        //   next={next}
-        //   previous={prev}
-        //   form={form}
+          finalStep={finalStep}
+          onSuccess={next}
+          current={current}
+          steps={allSteps}
+          next={next}
+          previous={prev}
+          form={form}
         />
       ),
     },

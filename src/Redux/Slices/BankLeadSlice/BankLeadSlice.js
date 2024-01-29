@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import LeadBankService from "./BankLeadService";
 import { toast } from "react-toastify";
+import { notification } from "antd";
 const initialState = {
   lead_bank: {},
   isError: false,
@@ -22,17 +23,17 @@ export const create_lead_bank = createAsyncThunk(
         error.response.data.error ||
         error.message ||
         error.toString();
-      error?.response?.data?.errors?.map((err) =>
-        toast.error(err.msg, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
+      console.log(
+        error?.response?.data?.errors,
+        "error?.response in slice file "
       );
+      let valuesArray = Object.values(error?.response?.data?.errors);
+
+      valuesArray?.map((err) => {
+        notification.error({
+          message: err[0],
+        });
+      });
       return thunkAPI.rejectWithValue(massage);
     }
   }
@@ -62,13 +63,39 @@ export const deleteLeadAction = createAsyncThunk(
   }
 );
 
-export const UpdateLeadAction = createAsyncThunk(
-  "UpdateLeadAction/getAll",
+export const get_Lead_by_id_Action = createAsyncThunk(
+  "get_Lead_by_id/getAll",
   async (data, thunkAPI) => {
     try {
-      return await LeadBankService.EditLead(data);
+      return await LeadBankService.getLead(data);
     } catch (error) {
       const massage = error.message;
+      return thunkAPI.rejectWithValue(massage);
+    }
+  }
+);
+
+export const edit_lead_bank = createAsyncThunk(
+  "edit_lead_bank/post",
+  async (data, thunkAPI) => {
+    try {
+      return await LeadBankService.update_lead_Bank_Action(data);
+    } catch (error) {
+      const massage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.massage) ||
+        error.response.data.error ||
+        error.message ||
+        error.toString();
+        let valuesArray = Object.values(error?.response?.data?.errors);
+
+        valuesArray?.map((err) => {
+          notification.error({
+            message: err[0],
+          });
+        });
+  
       return thunkAPI.rejectWithValue(massage);
     }
   }
@@ -132,16 +159,31 @@ export const lead_bank_Slice = createSlice({
       state.massage = action.payload;
     },
 
-     //update lead
-     [UpdateLeadAction.pending]: (state) => {
+    //get_Lead_by_id_Action
+    [get_Lead_by_id_Action.pending]: (state) => {
       state.isLodaing = true;
     },
-    [UpdateLeadAction.fulfilled]: (state, action) => {
+    [get_Lead_by_id_Action.fulfilled]: (state, action) => {
       state.isLodaing = false;
       state.lead_bank = action.payload;
       state.isSuccess = true;
     },
-    [UpdateLeadAction.rejected]: (state, action) => {
+    [get_Lead_by_id_Action.rejected]: (state, action) => {
+      state.isLodaing = false;
+      state.isError = true;
+      state.massage = action.payload;
+    },
+
+    //edit_lead_bank
+    [edit_lead_bank.pending]: (state) => {
+      state.isLodaing = true;
+    },
+    [edit_lead_bank.fulfilled]: (state, { payload }) => {
+      state.isLodaing = false;
+      state.isSuccess = true;
+      state.lead_bank = payload;
+    },
+    [edit_lead_bank.rejected]: (state, action) => {
       state.isLodaing = false;
       state.isError = true;
       state.massage = action.payload;

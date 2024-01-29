@@ -13,13 +13,54 @@ const ThirdStep = ({
 }) => {
   const [transactionType, set_transactionType] = useState();
   const [commissionbased, set_commissionBased] = useState();
+  const number = /[0-9]/;
+  const [priceNum, setPriceNum] = useState(false);
+  const [priceValue, setPriceValue] = useState();
+  const [error_message , setError_message] = useState()
+
+
+  const validatePassword = () => {
+   
+   
+    if (number.test(priceValue)) {
+      setPriceNum(true);
+    } else {
+      setPriceNum(false);
+    }
+
+         if (
+                     ( priceValue < 1 && priceValue.length > 0) &&
+                      transactionType == "commission_based" &&
+                      (commissionbased == "split_earning" ||
+                        commissionbased == "percentage_of_sale")
+                    ) {
+                      // return Promise.reject("price can't be less than 1");
+                      setError_message("price can't be less than 1")
+                      setPriceNum(true);
+                    }
+                    else{
+                      setPriceNum(false);
+                    }
+                    if (
+                      priceValue > 100 &&
+                      transactionType == "commission_based" &&
+                      (commissionbased == "split_earning" ||
+                        commissionbased == "percentage_of_sale")
+                    ) {
+                      // return Promise.reject("price can't be more than 100%");
+                      setError_message("price can't be more than 100%")
+                    }
+   
+};
+
+
 
   return (
     <>
       <Form
         form={form}
         onSuccess={onSuccess}
-        data={data}
+        // data={data}
         autoComplete="off"
         layout="vertical"
         style={{ margin: "50px" }}
@@ -34,15 +75,18 @@ const ThirdStep = ({
                   required: true,
                   message: "Please enter price",
                 },
-                () => ({
-                  validator(_, value) {
-                    set_transactionType(value);
-                    console.log(value, "commission_based____value ");
-                  },
-                }),
+                // () => ({
+                //   validator(_, value) {
+                //     set_transactionType(value);
+                //     console.log(value, "commission_based____value ");
+                //   },
+                // }),
               ]}
+              // onChange={(value)=>{console.log(value , "lllllllllllllllllllllllllvalue in select")}}
             >
-              <Select>
+              <Select
+              onChange={(value)=>{set_transactionType(value)}}
+              >
                 <Select.Option value="commission_based">
                   commission based
                 </Select.Option>
@@ -67,15 +111,17 @@ const ThirdStep = ({
                       required: true,
                       message: "Please enter price",
                     },
-                    () => ({
-                      validator(_, value) {
-                        set_commissionBased(value);
-                        console.log(value, "commission_based____value ");
-                      },
-                    }),
+                    // () => ({
+                    //   validator(_, value) {
+                    //     set_commissionBased(value);
+                    //     console.log(value, "commission_based____value ");
+                    //   },
+                    // }),
                   ]}
                 >
-                  <Select>
+                  <Select
+                    onChange={(value)=>{set_commissionBased(value)}}
+                  >
                     <Select.Option value="flat_rate">flat rate</Select.Option>
                     <Select.Option value="split_earning">
                       split earning
@@ -108,26 +154,38 @@ const ThirdStep = ({
               label="price"
               name="price_percentage"
               rules={[
+              
                 {
                   required: true,
                   message: "Please enter price",
                 },
-                () => ({
-                  validator(_, value) {
+                {
+                  validator: (_, value) => {
                     if (!value) {
                       return Promise.reject();
+                    } else {
+                      return Promise.resolve();
                     }
-                    if (isNaN(value)) {
-                      return Promise.reject("price has to be a number.");
-                    }
+                  },
+              
+                },
+                {
+                  validator: (_, value) => {
                     if (
                       value < 1 &&
                       transactionType == "commission_based" &&
                       (commissionbased == "split_earning" ||
                         commissionbased == "percentage_of_sale")
-                    ) {
+                    )  {
                       return Promise.reject("price can't be less than 1");
+                    } else {
+                      return Promise.resolve();
                     }
+                  },
+              
+                },
+                {
+                  validator: (_, value) => {
                     if (
                       value > 100 &&
                       transactionType == "commission_based" &&
@@ -135,15 +193,25 @@ const ThirdStep = ({
                         commissionbased == "percentage_of_sale")
                     ) {
                       return Promise.reject("price can't be more than 100%");
+                    } else {
+                      return Promise.resolve();
                     }
-                    return Promise.resolve();
                   },
-                }),
+              
+                },
+              
               ]}
               validateTrigger="onBlur"
             >
-              <Input type="number" />
+              <Input type="number"
+              
+          
+
+              />
+             
             </Form.Item>
+           
+            <p style={{color:priceNum ? "green" : "red"}}>{error_message}</p>
             <Form.Item
               label="description"
               name="description"

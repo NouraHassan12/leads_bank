@@ -96,6 +96,7 @@ const SecondStep = ({
   console.log(all_countries?.isLodaing, "all_countries");
   console.log(country_id, "__country_id in sec step");
   console.log(all_cities?.cities?.data, "__all_cities");
+  console.log(data , ":::::::::::::::::data::::::::::::")
 
   // Geocoding
 
